@@ -30,7 +30,7 @@ Before starting, make sure you have the following installed:
 Using Yarn:
 
 ```bash
-git clone https://github.com/your-username/dischard.git
+git clone https://github.com/2RK-dev/disc-hard-front.git
 cd dischard
 yarn install
 yarn dev
@@ -39,7 +39,7 @@ yarn dev
 Using npm:
 
 ```bash
-git clone https://github.com/your-username/dischard.git
+git clone https://github.com/2RK-dev/disc-hard-front.git
 cd dischard
 npm install
 npm run dev
