@@ -1,150 +1,209 @@
-# 💬 DiscHard — Clone de Discord en Next.js
+# 💬 DiscHard — A Discord-Inspired Chat App Built with Next.js
 
-DiscHard est une application de messagerie instantanée inspirée de Discord. Elle vise à offrir une expérience fluide, rapide et moderne pour la communication en temps réel, que ce soit entre amis ou dans des communautés. Ce projet est développé avec **Next.js** et a pour objectif d’explorer les meilleures pratiques en matière de design, d'architecture logicielle et de performances frontend.
+DiscHard is a real-time messaging application inspired by Discord. It aims to provide a smooth, fast, and modern communication experience for friends and communities. Built with **Next.js**, this project explores best practices in frontend performance, design systems, and scalable architecture.
 
 ---
 
-## 🚀 Table des matières
+## 🚀 Table of Contents
 
-- [📦 Prérequis](#-prérequis)
-- [🧩 Technologies utilisées](#-technologies-utilisées)
-- [✨ Fonctionnalités](#-fonctionnalités)
-- [📁 Structure du projet](#-structure-du-projet)
-- [🧠 Idées futures](#-idées-futures)
+- [📦 Prerequisites](#-prerequisites)
+- [🧩 Technologies Used](#-technologies-used)
+- [✨ Features](#-features)
+- [📁 Project Structure](#-project-structure)
+- [🧠 Future Ideas](#-future-ideas)
+- [⚙️ Environment Configuration](#%EF%B8%8F-environment-configuration)
 - [📚 Contribution](#-contribution)
-- [🪪 Licence](#-licence)
+- [🪪 License](#-license)
 
 ---
 
-## 📦 Prérequis
+## 📦 Prerequisites
 
-Avant de démarrer, assure-toi d’avoir installé les éléments suivants :
+Before starting, make sure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v18 ou + recommandé)
-- [Yarn](https://yarnpkg.com/) ou npm
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [Yarn](https://yarnpkg.com/) or npm
 - [Git](https://git-scm.com/)
 
-**Commande de démarrage :**
+**To start the project:**
+
+Using Yarn:
 
 ```bash
-git clone https://github.com/ton-utilisateur/dischard.git
+git clone https://github.com/your-username/dischard.git
 cd dischard
 yarn install
 yarn dev
 ```
 
+Using npm:
+
+```bash
+git clone https://github.com/your-username/dischard.git
+cd dischard
+npm install
+npm run dev
+```
+
+**If you have Docker installed:**
+
+```bash
+docker-compose up --build
+```
+
+This will set up the entire development environment inside containers.
+
+**Windows/Mac Tips:**
+
+- Make sure your `.env.local` file is created and correctly configured, see [Environment Configuration](#%EF%B8%8F-environment-configuration) .
+- On Windows, use **Git Bash** or **WSL** to run bash commands.
+- On Mac, everything should work out of the box with Terminal.
+
+**Development vs Production:**
+
+- For development: `yarn dev` or `npm run dev`
+- For production:
+
+```bash
+yarn build && yarn start
+# or
+npm run build && npm start
+```
+
 ---
 
-## 🧩 Technologies utilisées
+## 🧩 Technologies Used
 
-- **Next.js** — Framework React moderne pour SSR/SSG
-- **Tailwind CSS** — Styling rapide et responsive
-- **TypeScript** — Typage statique et sécurité accrue
-- **Prisma** — ORM pour la gestion de la base de données
-- **Socket.IO / Ably / Pusher** _(en discussion)_ — Pour la communication en temps réel
-- **NextAuth.js** — Pour l’authentification sécurisée
-- **PostgreSQL** — Base de données relationnelle robuste
+- **Next.js** — Modern React framework for SSR/SSG
+- **Tailwind CSS** — Fast and responsive styling
+- **TypeScript** — Static typing for safety and clarity
+- **Socket.IO / Ably / Pusher** _(under discussion)_ — For real-time communication
+- **NextAuth.js** — Secure authentication system
 
 ---
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-Voici la liste des fonctionnalités prévues ou en cours de développement :
+Here's a list of planned and current features:
 
-- 🔐 Authentification (OAuth2, Email/Password)
-- 🗂️ Système de serveurs (guilds) et de salons (channels)
-- 💬 Messagerie en temps réel (texte)
-- 📸 Envoi de fichiers et images
-- 🔔 Notifications en direct
-- 🧑‍🤝‍🧑 Gestion des membres (rôles, permissions)
-- 🌙 Thème dark mode
-- 📱 Responsive design mobile et desktop
+- 🔐 Authentication (OAuth2, Email/Password) (in development)
+- 🗂️ Server (guild) and channel system (in development)
+- 💬 Real-time text messaging (in development)
+- 📸 File and image uploads (in development)
+- 🔔 Live notifications (in development)
+- 🧑‍🤝‍🧑 Member management (roles, permissions) (in development and need discution)
+- 🌙 Dark mode (in development)
+- 📱 Mobile and desktop responsive design (maybe😂)
 
 ---
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
-Voici la structure actuelle (et prévue) du projet, accompagnée d'explications claires :
+The current and planned project structure, with detailed explanations:
 
 ```
 /dischard
-├── /app                # Next.js App Router (si utilisé)
-│   ├── /api            # API routes (ex: auth, messages)
-│   ├── /dashboard      # Vue principale de l’utilisateur connecté
-│   ├── /login          # Page de connexion
-│   └── /register       # Page d'inscription
+├── /app                      # Next.js App Router
+│   ├── /login                # Login page
+│   ├── /register             # Registration page
+│   ├── /direct-message       # private chat page
+│   └── /servers              # server chat page
 │
-├── /components         # Composants réutilisables (UI, Layout, etc.)
-│   ├── /ui             # Boutons, modals, inputs, etc.
-│   ├── Sidebar.tsx     # Barre latérale des serveurs
-│   └── MessageBox.tsx  # Zone de discussion
+├── /components               # Reusable UI components
+│   ├── /ui                   # Buttons, modals, inputs, etc.
+│   └── other                 # OtherComponent (in development)
 │
-├── /lib                # Fichiers utilitaires, helpers, configs
-│   ├── prisma.ts       # Client Prisma
-│   ├── auth.ts         # Fonctions liées à NextAuth
-│   └── socket.ts       # Gestion des websockets
+├── /lib                # Utility files, config, helpers
+│   ├── auth.ts         # NextAuth-related functions
+│   └── socket.ts       # Websocket handlers
 │
-├── /prisma             # Schéma et seed de base de données
-│   └── schema.prisma
+├── /public             # Static files (icons, images, logos)
 │
-├── /public             # Fichiers statiques (icônes, logos, images)
+├── /types              # Global TypeScript types (zod schema)
 │
-├── /styles             # Fichiers Tailwind CSS et globals
+├── /services           # API services or external services (in development)
 │
-├── /types              # Types TypeScript globaux
-│
-├── .env.local          # Variables d’environnement
-├── next.config.js      # Configuration Next.js
-├── tailwind.config.ts  # Configuration Tailwind
-└── tsconfig.json       # Configuration TypeScript
+├── .env.local          # Environment variables
+├── next.config.js      # Next.js configuration
+├── tailwind.config.ts  # Tailwind configuration
+└── tsconfig.json       # TypeScript configuration
 ```
-
-### 🔮 Prévision pour la structure future :
-
-- `/hooks` : hooks personnalisés (`useSocket`, `useAuth`, etc.)
-- `/context` : pour la gestion du contexte global (utilisateur, thème, notifications)
-- `/services` : appels API vers le backend ou vers des services externes (Ably, S3, etc.)
-- `/middleware.ts` : vérifications globales de routes (auth, rôle)
-- `/constants` : variables constantes (thèmes, rôles, codes)
 
 ---
 
-## 🧠 Idées futures
+## 🧠 Future Ideas
 
-- 📞 Intégration des appels audio/vidéo via WebRTC
-- 🧪 Tests unitaires avec Jest + React Testing Library
-- 📱 Application mobile via React Native
-- 📊 Statistiques d’usage du serveur
-- 📈 Système de boosts et abonnements
-- 🧵 Threads et réactions aux messages
-- 🔐 Chiffrement de bout en bout
-- 🏷️ Mentions & Emojis personnalisés
+- 📞 Audio/video call integration via WebRTC
+- 🧪 Unit testing with Jest + React Testing Library
+- 📱 Mobile app using React Native
+- 📊 Server usage statistics
+- 📈 Server boost and subscription system (if we want money 😗)
+- 🧵 Message threads and reactions
+- 🔐 End-to-end message encryption
+- 🏷️ Mentions & custom emojis (maybe)
+
+---
+
+---
+
+## ⚙️ Environment Configuration
+
+You will need a `.env.local` file at the root of your project. For now, it's empty by default, but it should at least include the following variables:
+
+```env
+# Backend URL
+API_BASE_URL=your-api-url
+
+# OAuth client (e.g., GitHub, Google)
+GITHUB_CLIENT_ID=your-client-id
+GITHUB_CLIENT_SECRET=your-client-secret
+
+# NextAuth secret key
+NEXTAUTH_SECRET=your-super-secret-key
+
+# Optional: Set the port
+PORT=3000
+```
+
+To change the default port, set the `PORT` variable in `.env.local`. For example, to run on port 4000:
+
+```env
+PORT=4000
+```
+
+Then run:
+
+```bash
+yarn dev
+# or
+npm run dev
+```
 
 ---
 
 ## 📚 Contribution
 
-Les contributions sont les bienvenues !  
-Tu peux ouvrir une issue, proposer une fonctionnalité ou corriger un bug. Merci d’écrire du code propre, typé et documenté.
+Contributions are welcome!  
+Feel free to open an issue, suggest a feature or submit a pull request. Please write clean, typed, and well-documented code.
 
 ```bash
-# Crée une branche
-git checkout -b feature/ma-fonction
+# Create a branch
+git checkout -b feature/my-feature
 
-# Fait un commit clair
-git commit -m "feat: ajout de la messagerie en temps réel"
+# Commit with a clear message
+git commit -m "feat: add real-time messaging feature"
 
-# Push ta branche
-git push origin feature/ma-fonction
+# Push your branch
+git push origin feature/my-feature
 ```
 
 ---
 
-## 🪪 Licence
+## 🪪 License
 
-Ce projet est sous licence MIT.  
-Libre à toi de le cloner, le modifier, ou t’en inspirer pour un usage personnel ou académique.
+This project is licensed under the MIT License.  
+Feel free to clone, modify, or reuse it for personal or academic purposes.
 
 ---
 
-> Fait avec ❤️ par 2RK-dev
+> Built with ❤️ by 2RK-dev
