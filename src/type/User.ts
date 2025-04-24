@@ -5,9 +5,9 @@ export const UserSchema = z.object({
 	id: z.number(),
 	name: z.string().min(1).max(20),
 	email: z.string().min(1).max(50),
-	avatar: z.string(),
+	avatar: z.string().optional(),
 	status: StatusSchema,
 	tag: z.string().optional(),
 });
 
-export type User = z.infer<typeof UserSchema>;
+export type user = z.infer<typeof UserSchema>;

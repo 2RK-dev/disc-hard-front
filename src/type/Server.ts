@@ -12,4 +12,4 @@ const ServerSchema = z.object({
 	creatorId: z.number(),
 });
 
-export type Server = z.infer<typeof ServerSchema>;
+export type server = z.infer<typeof ServerSchema>;
