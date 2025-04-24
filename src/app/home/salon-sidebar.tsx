@@ -120,8 +120,8 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 			<TooltipProvider delayDuration={100}>
 				<Tooltip>
 					<TooltipTrigger asChild>
-						<Button className="h-12 w-12 rounded-[24px] bg-[#313338] flex items-center justify-center hover:rounded-[16px] hover:bg-[#5865f2] transition-all duration-200">
-							<Download className="h-5 w-5 text-[#5865f2]" />
+						<Button className="h-12 w-12 rounded-[24px] bg-[#313338] text-[#5865f2] flex items-center justify-center hover:rounded-[16px] hover:bg-[#5865f2] hover:text-white transition-all duration-200">
+							<Download className="h-5 w-5 " />
 						</Button>
 					</TooltipTrigger>
 					<TooltipContent side="right">
