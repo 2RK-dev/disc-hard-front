@@ -1,0 +1,82 @@
+[
+	{
+		"id": 1,
+		"name": "Ryan",
+		"email": "ryan@2RKDev.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "online",
+		"tag": "1234"
+	},
+	{
+		"id": 2,
+		"name": "Elon Musk",
+		"email": "elon@x.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "online",
+		"tag": "2345"
+	},
+	{
+		"id": 3,
+		"name": "Mark Zuckerberg",
+		"email": "mark@meta.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "idle",
+		"tag": "3456"
+	},
+	{
+		"id": 4,
+		"name": "Satya Nadella",
+		"email": "satya@microsoft.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "online",
+		"tag": "4567"
+	},
+	{
+		"id": 5,
+		"name": "Tim Cook",
+		"email": "tim@apple.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "dnd",
+		"tag": "5678"
+	},
+	{
+		"id": 6,
+		"name": "Sundar Pichai",
+		"email": "sundar@google.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "online",
+		"tag": "6789"
+	},
+	{
+		"id": 7,
+		"name": "Jensen Huang",
+		"email": "jensen@nvidia.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "idle",
+		"tag": "7890"
+	},
+	{
+		"id": 8,
+		"name": "Sam Altman",
+		"email": "sam@openai.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "online",
+		"tag": "8901"
+	},
+	{
+		"id": 9,
+		"name": "Lisa Su",
+		"email": "lisa@amd.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "offline",
+		"tag": "9012"
+	},
+	{
+		"id": 10,
+		"name": "Jeff Bezos",
+		"email": "jeff@amazon.com",
+		"avatar": "/placeholder.svg?height=80&width=80",
+		"status": "offline",
+		"tag": "0123"
+	}
+]
