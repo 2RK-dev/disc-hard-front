@@ -104,11 +104,11 @@ The current and planned project structure, with detailed explanations:
 ```
 /dischard
 ├── /app                      # app directory (Next.js 13+)
-│   ├── /login                # Login page /login
-│   ├── /register             # Registration page /register
-│   ├── /direct-message       # private chat page /direct-message/:id
-│   ├── /servers              # server chat page /server/:id
-│   └── page.tsx              # landing page /
+│   ├── /login                # Login page
+│   ├── /register             # Registration page
+│   ├── /direct-message       # private chat page
+│   ├── /servers              # server chat page
+│   └── page.tsx              # landing page
 │
 ├── /components               # Reusable UI components
 │   ├── /ui                   # Buttons, modals, inputs, etc.
