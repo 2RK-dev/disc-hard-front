@@ -103,11 +103,12 @@ The current and planned project structure, with detailed explanations:
 
 ```
 /dischard
-├── /app                      # Next.js App Router
+├── /app                      # app directory (Next.js 13+)
 │   ├── /login                # Login page
 │   ├── /register             # Registration page
 │   ├── /direct-message       # private chat page
-│   └── /servers              # server chat page
+│   ├── /servers              # server chat page
+│   └── page.tsx              # landing page
 │
 ├── /components               # Reusable UI components
 │   ├── /ui                   # Buttons, modals, inputs, etc.
@@ -128,6 +129,12 @@ The current and planned project structure, with detailed explanations:
 ├── tailwind.config.ts  # Tailwind configuration
 └── tsconfig.json       # TypeScript configuration
 ```
+
+each folder in `/app` contains a `page.tsx` file that serves as the entry point for that route.
+example: `/app/login/page.tsx` is the login page, and `/app/register/page.tsx` is the registration page.
+and the route will be `/new-page` (e.g., `/app/new-page/page.tsx` will be accessible at `/new-page`).
+
+for each folder in app, you have the components used in that page, for example, in the `/servers` folder you have `server-sidebar.tsx` .
 
 ---
 
