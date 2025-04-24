@@ -8,10 +8,13 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useServers } from "@/test/server-context";
 import { Download, Plus, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { CreateServerModal } from "./create-server-modal";
 
 interface SalonSidebarProps {
 	activePage?: string;
@@ -19,14 +22,21 @@ interface SalonSidebarProps {
 
 export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 	const router = useRouter();
+	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+	const { servers, addServer } = useServers();
 
-	const salons = [
-		{ id: 1, name: "Discord" },
-		{ id: 2, name: "Gaming" },
-		{ id: 3, name: "Coding" },
-		{ id: 4, name: "Music" },
-		{ id: 5, name: "Art" },
-	];
+	const handleCreateServer = (serverData: {
+		name: string;
+		description: string;
+		initial: string;
+	}) => {
+		// Ajouter le nouveau serveur
+		addServer(serverData);
+
+		// Rediriger vers le nouveau serveur (le dernier de la liste + 1)
+		const newServerId = servers.length + 1;
+		router.push(`/servers/${newServerId}`);
+	};
 
 	return (
 		<div className="w-[72px] h-full bg-[#1e1f22] flex flex-col items-center py-3 gap-2 overflow-y-auto">
@@ -78,7 +88,7 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 
 			<Separator className="h-[2px] w-8 bg-gray-700 rounded-full my-1" />
 
-			{salons.map((salon) => (
+			{servers.map((salon) => (
 				<TooltipProvider key={salon.id} delayDuration={100}>
 					<Tooltip>
 						<TooltipTrigger asChild>
@@ -105,12 +115,14 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 			<TooltipProvider delayDuration={100}>
 				<Tooltip>
 					<TooltipTrigger asChild>
-						<Button className="h-12 w-12 rounded-[24px] bg-[#313338] flex items-center justify-center hover:rounded-[16px] text-[#23a559] hover:bg-[#23a559] hover:text-white  transition-all duration-200">
-							<Plus className="h-5 w-5" />
-						</Button>
+						<button
+							className="h-12 w-12 rounded-[24px] bg-[#313338] flex items-center justify-center hover:rounded-[16px] hover:bg-[#23a559] transition-all duration-200"
+							onClick={() => setIsCreateModalOpen(true)}>
+							<Plus className="h-5 w-5 text-[#23a559]" />
+						</button>
 					</TooltipTrigger>
 					<TooltipContent side="right">
-						<p className="font-semibold">Ajouter un salon</p>
+						<p className="font-semibold">Ajouter un serveur</p>
 					</TooltipContent>
 				</Tooltip>
 			</TooltipProvider>
@@ -129,6 +141,12 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 					</TooltipContent>
 				</Tooltip>
 			</TooltipProvider>
+
+			<CreateServerModal
+				isOpen={isCreateModalOpen}
+				onClose={() => setIsCreateModalOpen(false)}
+				onCreateServer={handleCreateServer}
+			/>
 		</div>
 	);
 }
