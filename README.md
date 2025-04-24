@@ -131,8 +131,7 @@ The current and planned project structure, with detailed explanations:
 ```
 
 each folder in `/app` contains a `page.tsx` file that serves as the entry point for that route.
-exemple: `/app/login/page.tsx` is the login page, and `/app/register/page.tsx` is the registration page.
-so for example, if you want to add a new page, you can create a new folder in `/app` and add a `page.tsx` file inside it.
+example: `/app/login/page.tsx` is the login page, and `/app/register/page.tsx` is the registration page.
 and the route will be `/new-page` (e.g., `/app/new-page/page.tsx` will be accessible at `/new-page`).
 
 for each folder in app, you have the components used in that page, for example, in the `/servers` folder you have `server-sidebar.tsx` .
