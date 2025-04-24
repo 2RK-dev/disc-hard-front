@@ -78,7 +78,7 @@ export function RegisterForm() {
 								type="email"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								className="bg-[#202225] border-none text-white shadow- hover:shadow-indigo-500"
+								className="bg-[#202225] border-none text-white hover:shadow-indigo-500"
 								required
 							/>
 						</div>
