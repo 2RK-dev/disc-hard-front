@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { setCookie } from "@/services/cookie";
+import user from "@/test/user.json";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,9 +31,18 @@ export function LoginForm() {
 		setIsLoading(true);
 
 		// Simuler une connexion
+
+		const finduser = user.find((user) => user.email === email);
+		if (!finduser) {
+			alert("Identifiants incorrects");
+			setIsLoading(false);
+			return;
+		}
+
 		setTimeout(() => {
 			setIsLoading(false);
 			// Rediriger vers l'application principale après connexion
+			setCookie("currentUser", JSON.stringify(finduser));
 			router.push("/home");
 		}, 1500);
 	};

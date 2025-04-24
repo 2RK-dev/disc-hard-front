@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { SalonSidebar } from "./salon-sidebar";
+import { SalonSidebar } from "../../components/salon-sidebar";
 
 export function HomeLayout() {
 	return (
