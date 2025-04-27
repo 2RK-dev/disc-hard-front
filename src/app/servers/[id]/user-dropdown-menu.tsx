@@ -11,7 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getCookie } from "@/services/cookie";
-import { user } from "@/type/User";
+import { User } from "@/type/User";
 import {
 	Bell,
 	ChevronDown,
@@ -21,14 +21,14 @@ import {
 	LogOut,
 	Settings,
 	Shield,
-	User,
+	User as UserComponent,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function UserDropdownMenu() {
 	const router = useRouter();
-	const [currentUser, setCurrentUser] = useState<user>();
+	const [currentUser, setCurrentUser] = useState<User>();
 
 	useEffect(() => {
 		getCurrentUser();
@@ -106,7 +106,7 @@ export function UserDropdownMenu() {
 					<DropdownMenuItem
 						className="hover:bg-[#5865F2] hover:text-white cursor-pointer"
 						onClick={() => router.push("/profile")}>
-						<User className="mr-2 h-4 w-4" />
+						<UserComponent className="mr-2 h-4 w-4" />
 						<span>Profil</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem className="hover:bg-[#5865F2] hover:text-white cursor-pointer">

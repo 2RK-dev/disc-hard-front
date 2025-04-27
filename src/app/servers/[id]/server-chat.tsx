@@ -102,15 +102,15 @@ export function ServerChat({ serverId }: ServerChatProps) {
 							</div>
 
 							{group.messages.map((message, messageIndex) => {
-								const member = getMemberById(message.authorId);
-								const user = getUserById(message.authorId);
+								const member = getMemberById(message.author.id);
+								const user = getUserById(message.author.id);
 
 								// Vérifier si le message précédent est du même auteur et dans un délai court
 								const prevMessage =
 									messageIndex > 0 ? group.messages[messageIndex - 1] : null;
 								const isContinuation =
 									prevMessage &&
-									prevMessage.authorId === message.authorId &&
+									prevMessage.author.id === message.author.id &&
 									new Date(message.timestamp).getTime() -
 										new Date(prevMessage.timestamp).getTime() <
 										300000; // 5 minutes
@@ -123,7 +123,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 											className="pl-14 group hover:bg-[#2e3035] rounded py-0.5 -mt-3">
 											<div className="flex items-start">
 												<div className="flex-1">
-													<p className="text-gray-200">{message.content}</p>
+													<p className="text-gray-200">{message.textContent}</p>
 													<span className="text-xs text-gray-400 opacity-0 group-hover:opacity-100">
 														{new Date(message.timestamp).toLocaleTimeString(
 															[],
@@ -148,7 +148,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 												}
 											/>
 											<AvatarFallback>
-												{(member?.name || user?.name || "?")[0]}
+												{(member?.user?.name || user?.name || "?")[0]}
 											</AvatarFallback>
 										</Avatar>
 										<div className="flex-1">
@@ -161,7 +161,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 															? "text-blue-400"
 															: "text-white"
 													}`}>
-													{member?.name || user?.name || "Utilisateur inconnu"}
+													{member?.user?.name || user?.name || "Utilisateur inconnu"}
 												</span>
 												<span className="text-xs text-gray-400 ml-2">
 													{new Date(message.timestamp).toLocaleTimeString([], {
@@ -170,7 +170,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 													})}
 												</span>
 											</div>
-											<p className="text-gray-200 mt-0.5">{message.content}</p>
+											<p className="text-gray-200 mt-0.5">{message.textContent}</p>
 										</div>
 									</div>
 								);

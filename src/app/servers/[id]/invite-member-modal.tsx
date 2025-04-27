@@ -39,7 +39,7 @@ export function InviteMemberModal({
 		.filter((user) => !existingMembers.some((member) => member.id === user.id))
 		.map((user) => ({
 			id: user.id,
-			name: user.name,
+			alias: user.name,
 			status: user.status,
 			role: "member",
 			avatar: user.avatar || "/placeholder.svg",
@@ -47,7 +47,7 @@ export function InviteMemberModal({
 
 	// Filtrer les membres disponibles selon la recherche
 	const filteredMembers = availableMembers.filter((member) =>
-		member.name.toLowerCase().includes(searchQuery.toLowerCase())
+		member.alias.toLowerCase().includes(searchQuery.toLowerCase())
 	);
 
 	const handleInvite = async () => {
@@ -123,7 +123,7 @@ export function InviteMemberModal({
 												<AvatarImage
 													src={member.avatar || "/placeholder.svg"}
 												/>
-												<AvatarFallback>{member.name[0]}</AvatarFallback>
+												<AvatarFallback>{member.alias[0]}</AvatarFallback>
 											</Avatar>
 											<div
 												className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#313338] ${getStatusColor(
@@ -131,7 +131,7 @@ export function InviteMemberModal({
 												)}`}
 											/>
 										</div>
-										<span className="text-sm font-medium">{member.name}</span>
+										<span className="text-sm font-medium">{member.alias}</span>
 									</div>
 
 									{selectedUser?.id === member.id && (

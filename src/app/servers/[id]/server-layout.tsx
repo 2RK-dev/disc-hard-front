@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getCookie } from "@/services/cookie";
 import { useServers } from "@/test/server-context";
 import { Member, Role } from "@/type/Member";
-import { user } from "@/type/User";
+import { User } from "@/type/User";
 import { Crown, Plus, Settings, Shield, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { InviteMemberModal } from "./invite-member-modal";
@@ -19,7 +19,7 @@ interface ServerLayoutProps {
 }
 
 export function ServerLayout({ serverId }: ServerLayoutProps) {
-	const [currentUser, setCurrentUser] = useState<user>();
+	const [currentUser, setCurrentUser] = useState<User>();
 	const { servers, getServer, addMemberToServer, updateMemberRole } =
 		useServers();
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
@@ -159,7 +159,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 														<AvatarImage
 															src={member.avatar || "/placeholder.svg"}
 														/>
-														<AvatarFallback>{member.name[0]}</AvatarFallback>
+														<AvatarFallback>{member.user?.name?.charAt(0) || "?"}</AvatarFallback>
 													</Avatar>
 													<div
 														className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#2b2d31] ${getStatusColor(
@@ -176,7 +176,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 																? "text-blue-400"
 																: "text-gray-300"
 														}`}>
-														{member.name}
+														{member.user?.name || "Utilisateur inconnu"}
 													</span>
 													{member.role === "owner" && (
 														<Crown className="h-3.5 w-3.5 ml-1 text-yellow-400" />
@@ -219,7 +219,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 														<AvatarImage
 															src={member.avatar || "/placeholder.svg"}
 														/>
-														<AvatarFallback>{member.name[0]}</AvatarFallback>
+														<AvatarFallback>{member.user?.name?.charAt(0) || "?"}</AvatarFallback>
 													</Avatar>
 													<div
 														className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#2b2d31] ${getStatusColor(
@@ -236,7 +236,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 																? "text-blue-400/70"
 																: ""
 														}`}>
-														{member.name}
+														{member.user?.name || "Utilisateur inconnu"}
 													</span>
 													{member.role === "owner" && (
 														<Crown className="h-3.5 w-3.5 ml-1 text-yellow-400/70" />
