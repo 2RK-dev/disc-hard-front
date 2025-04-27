@@ -77,7 +77,6 @@ export function ServerChat({ serverId }: ServerChatProps) {
 				groups.push({ date: messageDate, messages: [message] });
 			}
 		});
-		console.log(groups);
 
 		return groups;
 	};
