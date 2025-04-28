@@ -121,13 +121,13 @@ export function InviteMemberModal({
 										<div className="relative">
 											<Avatar className="h-8 w-8 mr-3">
 												<AvatarImage
-													src={member.avatar || "/placeholder.svg"}
+													src={member.user?.avatar || "/placeholder.svg"}
 												/>
 												<AvatarFallback>{member.alias[0]}</AvatarFallback>
 											</Avatar>
 											<div
 												className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#313338] ${getStatusColor(
-													member.status
+													member.user?.status || "offline"
 												)}`}
 											/>
 										</div>
