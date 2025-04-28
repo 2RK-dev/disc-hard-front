@@ -101,7 +101,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 							</div>
 
 							{group.messages.map((message, messageIndex) => {
-								const member = getMemberById(message.author.id);
+								const member = message.author;
 								const user = getUserById(message.author.id);
 
 								// Vérifier si le message précédent est du même auteur et dans un délai court
@@ -143,7 +143,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 										<Avatar className="h-10 w-10 mr-4 mt-0.5">
 											<AvatarImage
 												src={
-													member?.avatar || user?.avatar || "/placeholder.svg"
+													member?.user?.avatar || user?.avatar || "/placeholder.svg"
 												}
 											/>
 											<AvatarFallback>

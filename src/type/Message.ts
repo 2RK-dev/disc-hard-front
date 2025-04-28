@@ -1,10 +1,10 @@
 import z from "zod";
-import {ParticipantSchema} from "@/type/conversation";
+import { MemberSchema } from "@/type/Member";
 
 export const MessageSchema = z.object({
 	id: z.number(),
 	textContent: z.string(),
-	author: ParticipantSchema,
+	author: MemberSchema,
 	timestamp: z.string(),
 });
 

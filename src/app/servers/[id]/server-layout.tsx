@@ -86,8 +86,8 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 	});
 
 	// Grouper les membres par statut
-	const onlineMembers = sortedMembers.filter((m) => m.status !== "offline");
-	const offlineMembers = sortedMembers.filter((m) => m.status === "offline");
+	const onlineMembers = sortedMembers.filter((m) => m.user?.status !== "offline");
+	const offlineMembers = sortedMembers.filter((m) => m.user?.status === "offline");
 
 	return (
 		<div className="flex flex-row h-screen bg-[#1e1f22] text-white overflow-hidden ">
@@ -157,13 +157,13 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 												<div className="relative">
 													<Avatar className="h-8 w-8 mr-3">
 														<AvatarImage
-															src={member.avatar || "/placeholder.svg"}
+															src={member.user?.avatar || "/placeholder.svg"}
 														/>
 														<AvatarFallback>{member.user?.name?.charAt(0) || "?"}</AvatarFallback>
 													</Avatar>
 													<div
 														className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#2b2d31] ${getStatusColor(
-															member.status
+															member.user?.status || "offline"
 														)}`}
 													/>
 												</div>
@@ -217,13 +217,13 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 												<div className="relative">
 													<Avatar className="h-8 w-8 mr-3">
 														<AvatarImage
-															src={member.avatar || "/placeholder.svg"}
+															src={member.user?.avatar || "/placeholder.svg"}
 														/>
 														<AvatarFallback>{member.user?.name?.charAt(0) || "?"}</AvatarFallback>
 													</Avatar>
 													<div
 														className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#2b2d31] ${getStatusColor(
-															member.status
+															member.user?.status || "offline"
 														)}`}
 													/>
 												</div>

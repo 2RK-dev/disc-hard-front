@@ -9,7 +9,6 @@ const ServerSchema = z.object({
 	description: z.string(),
 	members: MemberSchema.array(),
 	messages: MessageSchema.array(),
-	creatorId: z.number(),
 });
 
 export type Server = z.infer<typeof ServerSchema>;

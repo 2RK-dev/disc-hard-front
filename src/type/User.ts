@@ -9,7 +9,6 @@ export const UserSchema = z.object({
 	createdAt: z.string().optional(),
 	avatar: z.string().optional(),
 	status: StatusSchema,
-	tag: z.string().optional(),
 });
 
 export type User = z.infer<typeof UserSchema>;
