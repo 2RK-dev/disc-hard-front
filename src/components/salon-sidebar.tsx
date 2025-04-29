@@ -8,12 +8,16 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getCookie } from "@/services/cookie";
+import { getMySalons } from "@/services/salon";
 import { useServers } from "@/test/server-context";
-import { Download, Plus, User } from "lucide-react";
+import { Server } from "@/type/Server";
+import { User } from "@/type/User";
+import { Download, Plus, User as UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateServerModal } from "./create-server-modal";
 
 interface SalonSidebarProps {
@@ -22,8 +26,31 @@ interface SalonSidebarProps {
 
 export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 	const router = useRouter();
+	const [currentUser, setCurrentUser] = useState<User>();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-	const { servers, addServer } = useServers();
+	const [salons, setSalons] = useState<Server[]>([]);
+	const { addServer } = useServers();
+
+	useEffect(() => {
+		const fetchCurrentUser = async () => {
+			const userCookie = await getCookie("currentUser");
+			if (userCookie) {
+				setCurrentUser(JSON.parse(userCookie));
+			}
+		};
+
+		fetchCurrentUser();
+	}, []);
+
+	useEffect(() => {
+		const fetchSalons = async () => {
+			if (currentUser) {
+				const salons = await getMySalons(currentUser.id);
+				setSalons(salons);
+			}
+		};
+		fetchSalons();
+	}, [currentUser]);
 
 	const handleCreateServer = (serverData: {
 		name: string;
@@ -34,7 +61,7 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 		addServer(serverData);
 
 		// Rediriger vers le nouveau serveur (le dernier de la liste + 1)
-		const newServerId = servers.length + 1;
+		const newServerId = salons.length + 1;
 		router.push(`/servers/${newServerId}`);
 	};
 
@@ -76,7 +103,7 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 										? "bg-[#5865f2]"
 										: "bg-[#313338] hover:bg-[#5865f2]"
 								} flex items-center justify-center hover:rounded-[16px] transition-all duration-200`}>
-								<User className="h-5 w-5 text-white" />
+								<UserIcon className="h-5 w-5 text-white" />
 							</Button>
 						</Link>
 					</TooltipTrigger>
@@ -88,7 +115,7 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 
 			<Separator className="h-[2px] w-8 bg-gray-700 rounded-full my-1" />
 
-			{servers.map((salon) => (
+			{salons.map((salon) => (
 				<TooltipProvider key={salon.id} delayDuration={100}>
 					<Tooltip>
 						<TooltipTrigger asChild>
