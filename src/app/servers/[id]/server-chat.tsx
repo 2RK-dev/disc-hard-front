@@ -22,24 +22,27 @@ interface ServerChatProps {
 }
 
 export function ServerChat({ serverId }: ServerChatProps) {
-	const { getServer, addMessage, currentUserId, getUserById } = useServers();
+	const { getServer, addMessage, getUserById } = useServers();
 	const [messageInput, setMessageInput] = useState("");
 	const scrollAreaRef = useRef<HTMLDivElement>(null);
 	const [server, setServer] = useState(getServer(serverId));
+	const messages = server?.messages;
 
 	useEffect(() => {
 		setServer(getServer(serverId));
 	}, [serverId, getServer]);
 
-	// Si le serveur n'existe pas, ne rien afficher
-	if (!server) return null;
+	useEffect(() => {
+		if (!server) return;
 
-	const { messages, members } = server;
+		const scrollContainer = scrollAreaRef.current?.querySelector(
+			"[data-radix-scroll-area-viewport]"
+		) as HTMLElement | null;
 
-	// Fonction pour obtenir les informations d'un membre à partir de son ID
-	const getMemberById = (id: number) => {
-		return members.find((member) => member.id === id);
-	};
+		if (!scrollContainer) return;
+
+		scrollContainer.scrollTop = scrollContainer.scrollHeight;
+	}, [messages, server]);
 
 	// Fonction pour envoyer un message
 	const handleSendMessage = (e: React.FormEvent) => {
@@ -51,23 +54,11 @@ export function ServerChat({ serverId }: ServerChatProps) {
 		setMessageInput("");
 	};
 
-	// Faire défiler automatiquement vers le bas lorsque de nouveaux messages sont ajoutés
-	useEffect(() => {
-		if (scrollAreaRef.current) {
-			const scrollContainer = scrollAreaRef.current.querySelector(
-				"[data-radix-scroll-area-viewport]"
-			);
-			if (scrollContainer) {
-				scrollContainer.scrollTop = scrollContainer.scrollHeight;
-			}
-		}
-	}, [messages]);
-
 	// Grouper les messages par jour
 	const groupMessagesByDate = () => {
 		const groups: { date: string; messages: Message[] }[] = [];
 
-		messages.forEach((message) => {
+		messages?.forEach((message) => {
 			const messageDate = new Date(message.timestamp).toLocaleDateString();
 			const existingGroup = groups.find((group) => group.date === messageDate);
 
@@ -87,7 +78,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 		<div className="flex-1 flex flex-col min-h-0">
 			<ScrollArea className=" flex-1 p-4 min-h-0" ref={scrollAreaRef}>
 				<div className="space-y-6">
-					{messageGroups.map((group, groupIndex) => (
+					{messageGroups.map((group) => (
 						<div key={group.date} className="space-y-4">
 							<div className="relative">
 								<div className="absolute inset-0 flex items-center">
@@ -118,17 +109,25 @@ export function ServerChat({ serverId }: ServerChatProps) {
 									// Message de continuation (sans avatar et nom)
 									return (
 										<div
-											key={message.id}
+											key={messageIndex}
 											className="pl-14 group hover:bg-[#2e3035] rounded py-0.5 -mt-3">
 											<div className="flex items-start">
 												<div className="flex-1">
 													<p className="text-gray-200">{message.textContent}</p>
-													<span className="text-xs text-gray-400 opacity-0 group-hover:opacity-100">
-														{new Date(message.timestamp).toLocaleTimeString(
-															[],
-															{ hour: "2-digit", minute: "2-digit" }
-														)}
-													</span>
+													<div className=" flex-row space-x-2 text-xs text-gray-400 hidden group-hover:flex">
+														<span className="text-xs text-gray-400 hidden group-hover:block">
+															{new Date(message.timestamp).toLocaleTimeString(
+																[],
+																{
+																	hour: "2-digit",
+																	minute: "2-digit",
+																}
+															)}
+														</span>
+														<span className="cursor-pointer">
+															<Smile className="h-4 text-gray-400 cursor-pointer hover:text-gray-200" />
+														</span>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -143,14 +142,16 @@ export function ServerChat({ serverId }: ServerChatProps) {
 										<Avatar className="h-10 w-10 mr-4 mt-0.5">
 											<AvatarImage
 												src={
-													member?.user?.avatar || user?.avatar || "/placeholder.svg"
+													member?.user?.avatar ||
+													user?.avatar ||
+													"/placeholder.svg"
 												}
 											/>
 											<AvatarFallback>
 												{(member?.user?.name || user?.name || "?")[0]}
 											</AvatarFallback>
 										</Avatar>
-										<div className="flex-1">
+										<div className="flex-1 group">
 											<div className="flex items-center">
 												<span
 													className={`font-semibold hover:underline cursor-pointer ${
@@ -160,7 +161,9 @@ export function ServerChat({ serverId }: ServerChatProps) {
 															? "text-blue-400"
 															: "text-white"
 													}`}>
-													{member?.user?.name || user?.name || "Utilisateur inconnu"}
+													{member?.user?.name ||
+														user?.name ||
+														"Utilisateur inconnu"}
 												</span>
 												<span className="text-xs text-gray-400 ml-2">
 													{new Date(message.timestamp).toLocaleTimeString([], {
@@ -169,7 +172,14 @@ export function ServerChat({ serverId }: ServerChatProps) {
 													})}
 												</span>
 											</div>
-											<p className="text-gray-200 mt-0.5">{message.textContent}</p>
+											<p className="text-gray-200 mt-0.5">
+												{message.textContent}
+											</p>
+											<div className="hidden items-center space-x-2 text-xs text-gray-400 mt-1 group-hover:flex">
+												<span className="cursor-pointer">
+													<Smile className="h-4 text-gray-400 cursor-pointer hover:text-gray-200" />
+												</span>
+											</div>
 										</div>
 									</div>
 								);
@@ -177,7 +187,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 						</div>
 					))}
 
-					{messages.length === 0 && (
+					{messages?.length === 0 && (
 						<div className="text-center py-8">
 							<p className="text-gray-400">
 								Aucun message dans ce serveur. Soyez le premier à écrire!
@@ -196,7 +206,9 @@ export function ServerChat({ serverId }: ServerChatProps) {
 					</div>
 					<div className="flex items-center">
 						<Input
-							placeholder={`Envoyer un message dans ${server.name}`}
+							placeholder={`Envoyer un message dans ${
+								server?.name || "ce serveur"
+							}`}
 							className="flex-1 bg-transparent border-none text-white focus-visible:ring-0 focus-visible:ring-offset-0 p-0"
 							value={messageInput}
 							onChange={(e) => setMessageInput(e.target.value)}

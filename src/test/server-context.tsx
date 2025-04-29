@@ -1,12 +1,12 @@
 "use client";
 
+import { getMemberWithUserId } from "@/test/utils";
 import { Member } from "@/type/Member";
 import { Message } from "@/type/Message";
 import { Server } from "@/type/Server";
 import { User } from "@/type/User";
 import { createContext, useContext, useState, type ReactNode } from "react";
 import users from "./user.json";
-import {createMemberFromUserId, getMemberWithUserId} from "@/test/utils";
 
 interface ServerContextType {
 	servers: Server[];
@@ -41,40 +41,6 @@ const getUserAsMember = (user: User, role: Member["role"]): Member => {
 	};
 };
 
-// Messages par défaut pour les serveurs
-const
-	defaultMessages: Message[] = [
-	{
-		id: 1,
-		textContent: "Bienvenue sur le serveur Discord!",
-		author: createMemberFromUserId(1),
-		timestamp: new Date(Date.now() - 86400000 * 2).toLocaleString(), // 2 jours avant
-	},
-	{
-		id: 2,
-		textContent: "N'hésitez pas à vous présenter dans ce canal.",
-		author: createMemberFromUserId(1),
-		timestamp: new Date(Date.now() - 86400000 * 2 + 60000).toLocaleString(),
-	},
-	{
-		id: 3,
-		textContent: "Salut tout le monde! Je suis ravi de rejoindre ce serveur.",
-		author: createMemberFromUserId(3),
-		timestamp: new Date(Date.now() - 86400000).toLocaleString(), // 1 jour avant
-	},
-	{
-		id: 4,
-		textContent: "Bienvenue! Heureux de te voir ici.",
-		author: createMemberFromUserId(2),
-		timestamp: new Date(Date.now() - 86400000 + 120000).toLocaleString(),
-	},
-	{
-		id: 5,
-		textContent: "Quelqu'un a des recommandations de jeux à partager?",
-		author: createMemberFromUserId(4),
-		timestamp: new Date(Date.now() - 3600000).toLocaleString(), // 1 heure avant
-	},
-];
 const now = new Date();
 // Créer des serveurs avec différents rôles pour l'utilisateur de test
 const createTestServers = (): Server[] => {
@@ -89,7 +55,6 @@ const createTestServers = (): Server[] => {
 	const ownerServer: Server = {
 		id: 1,
 		name: "AI Scalability & Innovation",
-		initial: "A",
 		description:
 			"Discussion entre leaders de l'industrie sur l'avenir des modèles d'IA, leur scalabilité et les défis éthiques à surmonter.",
 		members: ownerServerMembers,
@@ -103,7 +68,8 @@ const createTestServers = (): Server[] => {
 			},
 			{
 				id: 9032,
-				textContent: "Hey, things are going well. Just working on some new ideas.",
+				textContent:
+					"Hey, things are going well. Just working on some new ideas.",
 				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
 				timestamp: new Date(now.getTime() + 1000 * 60 * 2).toISOString(), // 2 minutes plus tard
 			},
@@ -151,7 +117,8 @@ const createTestServers = (): Server[] => {
 			},
 			{
 				id: 7333,
-				textContent: "Transparency is key. It's about building trust with users.",
+				textContent:
+					"Transparency is key. It's about building trust with users.",
 				author: getMemberWithUserId(3, ownerServerMembers), // Mark Zuckerberg
 				timestamp: new Date(now.getTime() + 1000 * 60 * 20).toISOString(), // 20 minutes plus tard
 			},
@@ -226,7 +193,6 @@ const createTestServers = (): Server[] => {
 	const adminServer: Server = {
 		id: 2,
 		name: "Tech Hub",
-		initial: "T",
 		description: "Discussions sur les dernières technologies",
 		members: adminServerMembers,
 		messages: [
@@ -349,7 +315,6 @@ const createTestServers = (): Server[] => {
 	const memberServer: Server = {
 		id: 3,
 		name: "AI Revolution",
-		initial: "A",
 		description: "Tout sur l'intelligence artificielle",
 		members: memberServerMembers,
 		messages: [
@@ -458,7 +423,6 @@ const createTestServers = (): Server[] => {
 	const extraServer: Server = {
 		id: 4,
 		name: "Gaming Zone",
-		initial: "G",
 		description: "Pour les passionnés de jeux vidéo",
 		members: [
 			getUserAsMember(availableUsers[0], "admin"),
@@ -590,8 +554,11 @@ export function ServerProvider({ children }: { children: ReactNode }) {
 					const newMessage: Message = {
 						id: newMessageId,
 						textContent: textContent,
-						author: getMemberWithUserId(currentUserId, getServer(serverId)?.members),
-						timestamp: new Date().toLocaleString(),
+						author: getMemberWithUserId(
+							currentUserId,
+							getServer(serverId)?.members
+						),
+						timestamp: new Date().toISOString(),
 					};
 
 					return {

@@ -38,9 +38,6 @@ export function MemberRoleMenu({
 	// Si l'utilisateur ne peut pas gérer ce membre, désactiver le menu
 	const isDisabled = !canManage;
 
-	// Vérifier si l'utilisateur actuel est le créateur du serveur
-	const isCreator = currentUserId === server.creatorId;
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger disabled={isDisabled} asChild>
@@ -62,10 +59,7 @@ export function MemberRoleMenu({
 							: "hover:bg-[#5865F2] hover:text-white"
 					} cursor-pointer`}
 					onClick={() => onChangeRole("owner")}
-					disabled={
-						member.role === "owner" ||
-						(!isCreator && currentUser.role !== "owner")
-					}>
+					disabled={member.role === "owner" || currentUser.role !== "owner"}>
 					<Crown className="h-4 w-4 mr-2 text-yellow-400" />
 					<span>Propriétaire</span>
 				</DropdownMenuItem>

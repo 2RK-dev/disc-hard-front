@@ -1,11 +1,11 @@
 import { ServerLayout } from "./server-layout";
-
 interface ServerPageProps {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 }
 
-export default function ServerPage({ params }: ServerPageProps) {
-	return <ServerLayout serverId={Number.parseInt(params.id)} />;
+export default async function ServerPage({ params }: ServerPageProps) {
+	const { id } = await params;
+	return <ServerLayout serverId={Number.parseInt(id)} />;
 }
