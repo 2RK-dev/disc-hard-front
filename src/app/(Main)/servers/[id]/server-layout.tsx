@@ -47,7 +47,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 			}
 		};
 		fetchCurrentSalon();
-	}, [currentUser]);
+	}, [currentUser, serverId]);
 
 	if (currentSalon === null) {
 		return <Loading></Loading>;
