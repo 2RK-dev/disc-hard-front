@@ -137,7 +137,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 								// Message complet avec avatar et nom
 								return (
 									<div
-										key={message.id}
+										key={messageIndex}
 										className="flex group hover:bg-[#2e3035] rounded py-1">
 										<Avatar className="h-10 w-10 mr-4 mt-0.5">
 											<AvatarImage
