@@ -1,0 +1,1022 @@
+[
+	{
+		"id": 1,
+		"name": "AI Scalability & Innovation",
+		"description": "Discussion entre leaders de l'industrie sur l'avenir des modèles d'IA, leur scalabilité et les défis éthiques à surmonter.",
+		"members": [
+			{
+				"id": 1,
+				"alias": "Ryan",
+				"user": {
+					"id": 1,
+					"name": "Ryan",
+					"email": "ryan@2RKDev.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "1234"
+				},
+				"role": "owner"
+			},
+			{
+				"id": 2,
+				"alias": "Elon Musk",
+				"user": {
+					"id": 2,
+					"name": "Elon Musk",
+					"email": "elon@x.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "2345"
+				},
+				"role": "admin"
+			},
+			{
+				"id": 3,
+				"alias": "Mark Zuckerberg",
+				"user": {
+					"id": 3,
+					"name": "Mark Zuckerberg",
+					"email": "mark@meta.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "idle",
+					"tag": "3456"
+				},
+				"role": "member"
+			},
+			{
+				"id": 4,
+				"alias": "Satya Nadella",
+				"user": {
+					"id": 4,
+					"name": "Satya Nadella",
+					"email": "satya@microsoft.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "4567"
+				},
+				"role": "member"
+			},
+			{
+				"id": 8,
+				"alias": "Sam Altman",
+				"user": {
+					"id": 8,
+					"name": "Sam Altman",
+					"email": "sam@openai.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "8901"
+				},
+				"role": "member"
+			}
+		],
+		"messages": [
+			{
+				"id": 4031,
+				"textContent": "Hey Elon, Mark! How's everything going?",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-25T08:00:00.000Z"
+			},
+			{
+				"id": 9032,
+				"textContent": "Hey, things are going well. Just working on some new ideas.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-25T08:02:00.000Z"
+			},
+			{
+				"id": 5394,
+				"textContent": "I'm brainstorming a few things myself, trying to stay ahead of the curve.",
+				"author": {
+					"id": 3,
+					"alias": "Mark Zuckerberg",
+					"user": {
+						"id": 3,
+						"name": "Mark Zuckerberg",
+						"email": "mark@meta.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "idle",
+						"tag": "3456"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-25T08:06:00.000Z"
+			},
+			{
+				"id": 6818,
+				"textContent": "Nice! I've been thinking about how to improve scalability for AI. What do you guys think?",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-25T08:13:00.000Z"
+			},
+			{
+				"id": 7448,
+				"textContent": "AI scalability is huge. We're working on some new models at X.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-25T08:30:00.000Z"
+			},
+			{
+				"id": 3260,
+				"textContent": "I agree, AI models will drive the next wave of innovation. How do we keep them ethical?",
+				"author": {
+					"id": 3,
+					"alias": "Mark Zuckerberg",
+					"user": {
+						"id": 3,
+						"name": "Mark Zuckerberg",
+						"email": "mark@meta.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "idle",
+						"tag": "3456"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-25T08:35:00.000Z"
+			},
+			{
+				"id": 3920,
+				"textContent": "Ethics are crucial. We need better regulation and transparency.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-25T08:42:00.000Z"
+			},
+			{
+				"id": 1521,
+				"textContent": "I think we should aim to build models that can explain their decisions.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-25T12:00:00.000Z"
+			},
+			{
+				"id": 7333,
+				"textContent": "Transparency is key. It's about building trust with users.",
+				"author": {
+					"id": 3,
+					"alias": "Mark Zuckerberg",
+					"user": {
+						"id": 3,
+						"name": "Mark Zuckerberg",
+						"email": "mark@meta.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "idle",
+						"tag": "3456"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-25T12:10:00.000Z"
+			},
+			{
+				"id": 7694,
+				"textContent": "Agreed. So, let's discuss the next steps next week. I have some ideas on this.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-25T12:25:00.000Z"
+			},
+			{
+				"id": 8234,
+				"textContent": "Looking forward to it. I'll prepare a proposal by then.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-25T12:30:00.000Z"
+			},
+			{
+				"id": 6512,
+				"textContent": "Great! Let's make sure to address scalability and ethical considerations together.",
+				"author": {
+					"id": 3,
+					"alias": "Mark Zuckerberg",
+					"user": {
+						"id": 3,
+						"name": "Mark Zuckerberg",
+						"email": "mark@meta.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "idle",
+						"tag": "3456"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-25T12:35:00.000Z"
+			}
+		]
+	},
+	{
+		"id": 2,
+		"name": "Tech Hub",
+		"description": "Discussions sur les dernières technologies",
+		"members": [
+			{
+				"id": 1,
+				"alias": "Ryan",
+				"user": {
+					"id": 1,
+					"name": "Ryan",
+					"email": "ryan@2RKDev.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "1234"
+				},
+				"role": "admin"
+			},
+			{
+				"id": 2,
+				"alias": "Elon Musk",
+				"user": {
+					"id": 2,
+					"name": "Elon Musk",
+					"email": "elon@x.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "2345"
+				},
+				"role": "owner"
+			},
+			{
+				"id": 6,
+				"alias": "Sundar Pichai",
+				"user": {
+					"id": 6,
+					"name": "Sundar Pichai",
+					"email": "sundar@google.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "6789"
+				},
+				"role": "admin"
+			},
+			{
+				"id": 7,
+				"alias": "Jensen Huang",
+				"user": {
+					"id": 7,
+					"name": "Jensen Huang",
+					"email": "jensen@nvidia.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "idle",
+					"tag": "7890"
+				},
+				"role": "member"
+			},
+			{
+				"id": 8,
+				"alias": "Sam Altman",
+				"user": {
+					"id": 8,
+					"name": "Sam Altman",
+					"email": "sam@openai.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "8901"
+				},
+				"role": "member"
+			}
+		],
+		"messages": [
+			{
+				"id": 1,
+				"textContent": "Hey everyone, great to have this chat about technology. Let's focus on the latest advancements at Nvidia, especially with their GPUs. Thoughts on the RTX 40 series?",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:06:12.369Z"
+			},
+			{
+				"id": 2,
+				"textContent": "Yeah, the RTX 40 series is a game changer. The architectural improvements are massive, especially with the DLSS 3.0 and frame generation. It's pushing gaming and rendering to new heights.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-29T12:06:22.369Z"
+			},
+			{
+				"id": 3,
+				"textContent": "Absolutely, Elon. I think the impact Nvidia has on AI applications outside of just gaming is huge, especially in areas like high-performance computing and data centers.",
+				"author": {
+					"id": 6,
+					"alias": "Sundar Pichai",
+					"user": {
+						"id": 6,
+						"name": "Sundar Pichai",
+						"email": "sundar@google.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "6789"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:06:42.369Z"
+			},
+			{
+				"id": 4,
+				"textContent": "That's right, Sandar. The GPUs are not just for gaming anymore. Nvidia's focus on AI-powered computing is revolutionizing fields like healthcare and autonomous vehicles.",
+				"author": {
+					"id": 7,
+					"alias": "Jensen Huang",
+					"user": {
+						"id": 7,
+						"name": "Jensen Huang",
+						"email": "jensen@nvidia.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "idle",
+						"tag": "7890"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:07:12.369Z"
+			},
+			{
+				"id": 5,
+				"textContent": "Exactly, and Nvidia's approach to merging hardware with software is what makes them stand out. The CUDA toolkit has opened up a whole new world for developers in scientific research and simulations.",
+				"author": {
+					"id": 8,
+					"alias": "Sam Altman",
+					"user": {
+						"id": 8,
+						"name": "Sam Altman",
+						"email": "sam@openai.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "8901"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:08:12.369Z"
+			},
+			{
+				"id": 6,
+				"textContent": "Let's not forget about Nvidia's contributions to the automotive industry. With their Drive platform, they’re accelerating the development of self-driving technologies.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-29T12:09:12.369Z"
+			},
+			{
+				"id": 7,
+				"textContent": "True, Elon. The Nvidia Drive platform is key to making autonomous driving a reality. It’s not just about the tech, it’s about the partnerships with car manufacturers to integrate it into real-world applications.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:10:12.369Z"
+			},
+			{
+				"id": 8,
+				"textContent": "And Sundar, Nvidia’s role in AI infrastructure is unparalleled. They’ve made GPUs the backbone of AI development, particularly for training massive models. Their software stack has also evolved to support more complex AI workflows.",
+				"author": {
+					"id": 6,
+					"alias": "Sundar Pichai",
+					"user": {
+						"id": 6,
+						"name": "Sundar Pichai",
+						"email": "sundar@google.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "6789"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:11:12.369Z"
+			},
+			{
+				"id": 9,
+				"textContent": "Nvidia's GPUs are definitely paving the way for the future of high-performance computing. From scientific research to content creation, they’re an essential part of the ecosystem.",
+				"author": {
+					"id": 7,
+					"alias": "Jensen Huang",
+					"user": {
+						"id": 7,
+						"name": "Jensen Huang",
+						"email": "jensen@nvidia.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "idle",
+						"tag": "7890"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:12:12.369Z"
+			},
+			{
+				"id": 10,
+				"textContent": "I agree, Jensen. And with the continuous advancements in ray tracing and the Metaverse, Nvidia is leading the way in making virtual environments more realistic and immersive.",
+				"author": {
+					"id": 8,
+					"alias": "Sam Altman",
+					"user": {
+						"id": 8,
+						"name": "Sam Altman",
+						"email": "sam@openai.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "8901"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:13:12.369Z"
+			},
+			{
+				"id": 11,
+				"textContent": "For sure, the future is incredibly exciting with Nvidia’s leadership in this space. Their technology is shaping industries, and it's exciting to think about where we’ll be in the next 5 years.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-29T12:14:12.369Z"
+			},
+			{
+				"id": 12,
+				"textContent": "It’s amazing to think that the tech we’re discussing today is already being implemented in real-world use cases. We’re on the edge of some incredible breakthroughs in multiple sectors.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:15:12.369Z"
+			},
+			{
+				"id": 13,
+				"textContent": "And as these advancements unfold, we’ll continue to see innovation not only in gaming and AI but also in sectors like robotics, medical imaging, and climate modeling.",
+				"author": {
+					"id": 6,
+					"alias": "Sundar Pichai",
+					"user": {
+						"id": 6,
+						"name": "Sundar Pichai",
+						"email": "sundar@google.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "6789"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:16:12.369Z"
+			},
+			{
+				"id": 14,
+				"textContent": "Exactly, Sundar. The applications are endless, and with Nvidia at the helm, we’re definitely heading toward a future where technology serves even broader societal needs.",
+				"author": {
+					"id": 8,
+					"alias": "Sam Altman",
+					"user": {
+						"id": 8,
+						"name": "Sam Altman",
+						"email": "sam@openai.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "8901"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:17:12.369Z"
+			},
+			{
+				"id": 15,
+				"textContent": "Alright, I think we’ve covered the big topics. I’m excited to see what’s coming next from Nvidia. Let’s catch up again soon and discuss the next big tech revolution.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-29T12:18:12.369Z"
+			}
+		]
+	},
+	{
+		"id": 3,
+		"name": "AI Revolution",
+		"description": "Tout sur l'intelligence artificielle",
+		"members": [
+			{
+				"id": 1,
+				"alias": "Ryan",
+				"user": {
+					"id": 1,
+					"name": "Ryan",
+					"email": "ryan@2RKDev.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "1234"
+				},
+				"role": "member"
+			},
+			{
+				"id": 8,
+				"alias": "Sam Altman",
+				"user": {
+					"id": 8,
+					"name": "Sam Altman",
+					"email": "sam@openai.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "8901"
+				},
+				"role": "owner"
+			},
+			{
+				"id": 2,
+				"alias": "Elon Musk",
+				"user": {
+					"id": 2,
+					"name": "Elon Musk",
+					"email": "elon@x.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "2345"
+				},
+				"role": "admin"
+			},
+			{
+				"id": 4,
+				"alias": "Satya Nadella",
+				"user": {
+					"id": 4,
+					"name": "Satya Nadella",
+					"email": "satya@microsoft.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "4567"
+				},
+				"role": "member"
+			},
+			{
+				"id": 6,
+				"alias": "Sundar Pichai",
+				"user": {
+					"id": 6,
+					"name": "Sundar Pichai",
+					"email": "sundar@google.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "6789"
+				},
+				"role": "member"
+			}
+		],
+		"messages": [
+			{
+				"id": 1,
+				"textContent": "So, I’ve been thinking about ChatGPT lately. I’ve been hearing a lot about its capabilities, but also about how much power it requires. Anyone else notice how much the CPUs heat up when running such models?",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:06:12.369Z"
+			},
+			{
+				"id": 6,
+				"textContent": "Yeah, that's true. The processing required to run models like ChatGPT puts a significant load on the CPU, especially with the massive scale of the computations. But it’s not just the CPUs – the GPUs are taking a huge hit too.",
+				"author": {
+					"id": 6,
+					"alias": "Sundar Pichai",
+					"user": {
+						"id": 6,
+						"name": "Sundar Pichai",
+						"email": "sundar@google.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "6789"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:06:17.369Z"
+			},
+			{
+				"id": 4,
+				"textContent": "Definitely. When you think about how complex these neural networks are, it makes sense that they generate a lot of heat. It's one of the reasons Nvidia's GPUs have been so popular – they handle parallel processing much better than standard CPUs.",
+				"author": {
+					"id": 4,
+					"alias": "Satya Nadella",
+					"user": {
+						"id": 4,
+						"name": "Satya Nadella",
+						"email": "satya@microsoft.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "4567"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:06:24.369Z"
+			},
+			{
+				"id": 1,
+				"textContent": "Right, Satya. But the challenge remains in cooling. It's getting harder to balance power efficiency with the demand for processing power. Imagine having to deal with those cooling systems in data centers running ChatGPT at full scale.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:06:37.369Z"
+			},
+			{
+				"id": 8,
+				"textContent": "The cooling aspect is key. I know from personal experience that building systems that can scale while maintaining temperature control is a major hurdle. We're looking at new ways to integrate liquid cooling, especially in systems running AI models like ChatGPT.",
+				"author": {
+					"id": 8,
+					"alias": "Sam Altman",
+					"user": {
+						"id": 8,
+						"name": "Sam Altman",
+						"email": "sam@openai.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "8901"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-29T12:06:47.369Z"
+			},
+			{
+				"id": 2,
+				"textContent": "Exactly. The power consumption alone can be crazy. A single model running at full scale can draw a lot of electricity. It's one of the things I think about when we consider the sustainability of such systems. We need better, more efficient hardware.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:06:59.369Z"
+			},
+			{
+				"id": 6,
+				"textContent": "And it's not just about performance; it's about cooling the performance, like you said. The whole architecture of these chips needs to evolve to not just be faster, but also better at managing heat while maintaining peak efficiency.",
+				"author": {
+					"id": 6,
+					"alias": "Sundar Pichai",
+					"user": {
+						"id": 6,
+						"name": "Sundar Pichai",
+						"email": "sundar@google.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "6789"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:07:12.369Z"
+			},
+			{
+				"id": 4,
+				"textContent": "Exactly. AI models like ChatGPT are pushing the limits of current hardware, and this requires an entirely new approach to chip design. We've been exploring ways to optimize chips for specific AI workloads, but we need something revolutionary to keep up.",
+				"author": {
+					"id": 4,
+					"alias": "Satya Nadella",
+					"user": {
+						"id": 4,
+						"name": "Satya Nadella",
+						"email": "satya@microsoft.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "4567"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:07:22.369Z"
+			},
+			{
+				"id": 1,
+				"textContent": "The future of these models relies on how we innovate the hardware around them. More energy-efficient GPUs, better cooling techniques, and integration of AI hardware optimized for specific tasks could change the game.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:07:32.369Z"
+			},
+			{
+				"id": 8,
+				"textContent": "It’s also a matter of working with manufacturers to ensure that these innovations are scalable. We can't just innovate on the hardware side; we need to think about infrastructure too, making sure we can build these systems affordably at scale.",
+				"author": {
+					"id": 8,
+					"alias": "Sam Altman",
+					"user": {
+						"id": 8,
+						"name": "Sam Altman",
+						"email": "sam@openai.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "8901"
+					},
+					"role": "owner"
+				},
+				"timestamp": "2025-04-29T12:07:47.369Z"
+			},
+			{
+				"id": 2,
+				"textContent": "Definitely. And as we push for more AI-powered systems like ChatGPT, we'll need a more sustainable energy model to keep them running. I think this is where companies like Tesla and others can really help lead the way with green energy solutions for data centers.",
+				"author": {
+					"id": 2,
+					"alias": "Elon Musk",
+					"user": {
+						"id": 2,
+						"name": "Elon Musk",
+						"email": "elon@x.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "2345"
+					},
+					"role": "admin"
+				},
+				"timestamp": "2025-04-29T12:08:02.369Z"
+			},
+			{
+				"id": 6,
+				"textContent": "Agreed. Sustainability and green energy are going to be critical. But we can't just rely on energy efficiency alone – we also need to ensure that the entire lifecycle of the hardware is sustainable. From sourcing materials to disposal, the whole process matters.",
+				"author": {
+					"id": 6,
+					"alias": "Sundar Pichai",
+					"user": {
+						"id": 6,
+						"name": "Sundar Pichai",
+						"email": "sundar@google.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "6789"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:08:12.369Z"
+			},
+			{
+				"id": 4,
+				"textContent": "It’s about creating a circular economy for AI hardware. Recycling, reusing, and rethinking how we build these systems could make a huge difference in the long term.",
+				"author": {
+					"id": 4,
+					"alias": "Satya Nadella",
+					"user": {
+						"id": 4,
+						"name": "Satya Nadella",
+						"email": "satya@microsoft.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "4567"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:08:22.369Z"
+			},
+			{
+				"id": 1,
+				"textContent": "That’s a very important point. We need to make sure that as we advance technologically, we’re also advancing responsibly. This includes making sure that our energy use, hardware production, and disposal processes all align with sustainability goals.",
+				"author": {
+					"id": 1,
+					"alias": "Ryan",
+					"user": {
+						"id": 1,
+						"name": "Ryan",
+						"email": "ryan@2RKDev.com",
+						"avatar": "/placeholder.svg?height=80&width=80",
+						"status": "online",
+						"tag": "1234"
+					},
+					"role": "member"
+				},
+				"timestamp": "2025-04-29T12:08:32.369Z"
+			}
+		]
+	},
+	{
+		"id": 4,
+		"name": "Gaming Zone",
+		"description": "Pour les passionnés de jeux vidéo",
+		"members": [
+			{
+				"id": 1,
+				"alias": "Ryan",
+				"user": {
+					"id": 1,
+					"name": "Ryan",
+					"email": "ryan@2RKDev.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "online",
+					"tag": "1234"
+				},
+				"role": "admin"
+			},
+			{
+				"id": 3,
+				"alias": "Mark Zuckerberg",
+				"user": {
+					"id": 3,
+					"name": "Mark Zuckerberg",
+					"email": "mark@meta.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "idle",
+					"tag": "3456"
+				},
+				"role": "owner"
+			},
+			{
+				"id": 5,
+				"alias": "Tim Cook",
+				"user": {
+					"id": 5,
+					"name": "Tim Cook",
+					"email": "tim@apple.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "dnd",
+					"tag": "5678"
+				},
+				"role": "member"
+			},
+			{
+				"id": 7,
+				"alias": "Jensen Huang",
+				"user": {
+					"id": 7,
+					"name": "Jensen Huang",
+					"email": "jensen@nvidia.com",
+					"avatar": "/placeholder.svg?height=80&width=80",
+					"status": "idle",
+					"tag": "7890"
+				},
+				"role": "member"
+			}
+		],
+		"messages": []
+	}
+]
