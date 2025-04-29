@@ -5,8 +5,12 @@ import type React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useServers } from "@/test/server-context";
+import { getCookie } from "@/services/cookie";
+import { getSalonById, sendMessage } from "@/services/salon";
+import { Member } from "@/type/Member";
 import { Message } from "@/type/Message";
+import { Server } from "@/type/Server";
+import { User } from "@/type/User";
 import {
 	GiftIcon as GIF,
 	Gift,
@@ -22,18 +26,47 @@ interface ServerChatProps {
 }
 
 export function ServerChat({ serverId }: ServerChatProps) {
-	const { getServer, addMessage, getUserById } = useServers();
 	const [messageInput, setMessageInput] = useState("");
 	const scrollAreaRef = useRef<HTMLDivElement>(null);
-	const [server, setServer] = useState(getServer(serverId));
-	const messages = server?.messages;
+	const [currentUser, setCurrentUser] = useState<User>();
+	const [currentMember, setCurrentMember] = useState<Member>();
+	const [currentSalon, setCurrentSalon] = useState<Server>();
+	const [messages, setMessages] = useState<Message[]>([]);
 
 	useEffect(() => {
-		setServer(getServer(serverId));
-	}, [serverId, getServer]);
+		const fetchCurrentUser = async () => {
+			const userCookie = await getCookie("currentUser");
+			if (userCookie) {
+				setCurrentUser(JSON.parse(userCookie));
+			}
+		};
+		fetchCurrentUser();
+	}, []);
 
 	useEffect(() => {
-		if (!server) return;
+		const fetchCurrentSalon = async () => {
+			const salon = await getSalonById(serverId);
+			if (salon) {
+				setCurrentSalon(salon);
+				setMessages(salon.messages);
+			}
+		};
+		fetchCurrentSalon();
+	}, [serverId]);
+
+	useEffect(() => {
+		if (!currentUser || !currentSalon) return;
+
+		const member = currentSalon.members.find(
+			(member: Member) => member.user?.id === currentUser?.id
+		);
+		if (member) {
+			setCurrentMember(member);
+		}
+	}, [currentUser, currentSalon]);
+
+	useEffect(() => {
+		if (!currentSalon) return;
 
 		const scrollContainer = scrollAreaRef.current?.querySelector(
 			"[data-radix-scroll-area-viewport]"
@@ -42,15 +75,20 @@ export function ServerChat({ serverId }: ServerChatProps) {
 		if (!scrollContainer) return;
 
 		scrollContainer.scrollTop = scrollContainer.scrollHeight;
-	}, [messages, server]);
+	}, [messages, currentSalon]);
 
 	// Fonction pour envoyer un message
-	const handleSendMessage = (e: React.FormEvent) => {
+	const handleSendMessage = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		if (messageInput.trim() === "") return;
 
-		addMessage(serverId, messageInput);
+		if (currentMember != undefined) {
+			const Message = await sendMessage(serverId, currentMember, messageInput);
+			if (Message) {
+				setMessages((prevMessages) => [...prevMessages, Message]);
+			}
+		}
 		setMessageInput("");
 	};
 
@@ -75,8 +113,8 @@ export function ServerChat({ serverId }: ServerChatProps) {
 	const messageGroups = groupMessagesByDate();
 
 	return (
-		<div className="flex-1 flex flex-col min-h-0">
-			<ScrollArea className=" flex-1 p-4 min-h-0" ref={scrollAreaRef}>
+		<div className="flex-1 flex flex-col min-h-0 break-words">
+			<ScrollArea className=" flex-1 p-4 min-h-0 " ref={scrollAreaRef}>
 				<div className="space-y-6">
 					{messageGroups.map((group) => (
 						<div key={group.date} className="space-y-4">
@@ -93,7 +131,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 
 							{group.messages.map((message, messageIndex) => {
 								const member = message.author;
-								const user = getUserById(message.author.id);
+								const user = message.author.user;
 
 								// Vérifier si le message précédent est du même auteur et dans un délai court
 								const prevMessage =
@@ -111,9 +149,11 @@ export function ServerChat({ serverId }: ServerChatProps) {
 										<div
 											key={messageIndex}
 											className="pl-14 group hover:bg-[#2e3035] rounded py-0.5 -mt-3">
-											<div className="flex items-start">
-												<div className="flex-1">
-													<p className="text-gray-200">{message.textContent}</p>
+											<div className="flex items-start min-w-0">
+												<div className="flex-1 min-w-0">
+													<p className="text-gray-200 break-words">
+														{message.textContent}
+													</p>
 													<div className=" flex-row space-x-2 text-xs text-gray-400 hidden group-hover:flex">
 														<span className="text-xs text-gray-400 hidden group-hover:block">
 															{new Date(message.timestamp).toLocaleTimeString(
@@ -172,7 +212,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 													})}
 												</span>
 											</div>
-											<p className="text-gray-200 mt-0.5">
+											<p className="text-gray-200 mt-0.5 break-words">
 												{message.textContent}
 											</p>
 											<div className="hidden items-center space-x-2 text-xs text-gray-400 mt-1 group-hover:flex">
@@ -207,7 +247,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 					<div className="flex items-center">
 						<Input
 							placeholder={`Envoyer un message dans ${
-								server?.name || "ce serveur"
+								currentSalon?.name || "ce serveur"
 							}`}
 							className="flex-1 bg-transparent border-none text-white focus-visible:ring-0 focus-visible:ring-offset-0 p-0"
 							value={messageInput}
