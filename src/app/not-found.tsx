@@ -64,11 +64,11 @@ export default function NotFound() {
 				{/* Texte d'erreur */}
 				<h1 className="mb-2 text-4xl font-bold text-white">404</h1>
 				<h2 className="mb-6 text-2xl font-semibold text-white">
-					Astronaute perdu dans l'espace
+					Astronaute perdu dans l&apos;espace
 				</h2>
 				<p className="mb-8 max-w-md text-gray-300">
-					On dirait que vous avez dérivé trop loin. Cette page n'existe pas ou a
-					été déplacée vers une autre galaxie.
+					On dirait que vous avez dérivé trop loin. Cette page n&apos;existe pas
+					ou a été déplacée vers une autre galaxie.
 				</p>
 
 				{/* Bouton de retour */}
