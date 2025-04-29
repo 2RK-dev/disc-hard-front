@@ -1,8 +1,6 @@
 import fs from "fs";
 import { readFile } from "fs/promises";
 
-const now = new Date();
-
 const getMemberWithUserId = (id, members) => {
 	if (!members) {
 		return createMemberFromUserId(id);
