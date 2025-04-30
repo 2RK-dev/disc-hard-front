@@ -6,6 +6,8 @@
 		"allowJs": true,
 		"skipLibCheck": true,
 		"strict": true,
+		"sourceMap": true,
+		"inlineSources": true,
 		"noEmit": true,
 		"esModuleInterop": true,
 		"module": "esnext",

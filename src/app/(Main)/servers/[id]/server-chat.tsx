@@ -114,7 +114,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 
 	return (
 		<div className="flex-1 flex flex-col min-h-0 break-words">
-			<ScrollArea className=" flex-1 p-4 min-h-0 " ref={scrollAreaRef}>
+			<ScrollArea className="flex-1 p-4 min-h-0 break-all" ref={scrollAreaRef}>
 				<div className="space-y-6">
 					{messageGroups.map((group) => (
 						<div key={group.date} className="space-y-4">
