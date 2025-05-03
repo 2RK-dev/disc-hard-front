@@ -8,45 +8,56 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useServers } from "@/test/server-context";
+import { CanManageMemberRole } from "@/lib/MemberUtils";
+import { getCookie } from "@/services/cookie";
 import { Member } from "@/type/Member";
-import { Crown, MoreHorizontal, Shield, User } from "lucide-react";
+import { Server } from "@/type/Server";
+import { User } from "@/type/User";
+import { Crown, MoreHorizontal, Shield, User as UserIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface MemberRoleMenuProps {
 	member: Member;
-	serverId: number;
+	salon: Server;
 	onChangeRole: (role: Member["role"]) => void;
 }
 
 export function MemberRoleMenu({
 	member,
-	serverId,
+	salon,
 	onChangeRole,
 }: MemberRoleMenuProps) {
-	const { currentUserId, getServer, canManageRole } = useServers();
+	const [currentUser, setCurrentUser] = useState<User>();
+	const [canManage, setCanManage] = useState(false);
+	const currentUserMember = salon.members.find((m) => m.id === currentUser?.id);
 
-	const server = getServer(serverId);
-	if (!server) return null;
+	useEffect(() => {
+		const fetchCurrentUser = async () => {
+			const userCookie = await getCookie("currentUser");
+			if (userCookie) {
+				setCurrentUser(JSON.parse(userCookie));
+			}
+		};
+		fetchCurrentUser();
+	}, []);
+	useEffect(() => {
+		if (currentUserMember) {
+			setCanManage(CanManageMemberRole(currentUserMember, member));
+		} else {
+			setCanManage(false);
+		}
+	}, [currentUser, member]);
 
-	// Trouver l'utilisateur actuel dans les membres du serveur
-	const currentUser = server.members.find((m) => m.id === currentUserId);
-	if (!currentUser) return null;
+	if (!currentUserMember) return null;
 
-	// Vérifier si l'utilisateur actuel peut gérer ce membre
-	const canManage = canManageRole(currentUser, member);
-
-	// Si l'utilisateur ne peut pas gérer ce membre, désactiver le menu
-	const isDisabled = !canManage;
-
-	// Vérifier si l'utilisateur actuel est le créateur du serveur
-	const isCreator = currentUserId === server.creatorId;
+	if (!salon) return null;
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger disabled={isDisabled} asChild>
+			<DropdownMenuTrigger disabled={!canManage} asChild>
 				<button
 					className={`p-1 rounded-md ${
-						isDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-[#35373c]"
+						!canManage ? "opacity-50 cursor-not-allowed" : "hover:bg-[#35373c]"
 					}`}>
 					<MoreHorizontal className="h-4 w-4 text-gray-400" />
 				</button>
@@ -63,8 +74,7 @@ export function MemberRoleMenu({
 					} cursor-pointer`}
 					onClick={() => onChangeRole("owner")}
 					disabled={
-						member.role === "owner" ||
-						(!isCreator && currentUser.role !== "owner")
+						member.role === "owner" || currentUserMember.role !== "owner"
 					}>
 					<Crown className="h-4 w-4 mr-2 text-yellow-400" />
 					<span>Propriétaire</span>
@@ -79,7 +89,7 @@ export function MemberRoleMenu({
 					onClick={() => onChangeRole("admin")}
 					disabled={
 						member.role === "admin" ||
-						(currentUser.role !== "owner" && member.role === "owner")
+						(currentUserMember.role !== "owner" && member.role === "owner")
 					}>
 					<Shield className="h-4 w-4 mr-2 text-blue-400" />
 					<span>Administrateur</span>
@@ -94,9 +104,9 @@ export function MemberRoleMenu({
 					onClick={() => onChangeRole("member")}
 					disabled={
 						member.role === "member" ||
-						(currentUser.role !== "owner" && member.role === "owner")
+						(currentUserMember.role !== "owner" && member.role === "owner")
 					}>
-					<User className="h-4 w-4 mr-2 text-gray-400" />
+					<UserIcon className="h-4 w-4 mr-2 text-gray-400" />
 					<span>Membre</span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>

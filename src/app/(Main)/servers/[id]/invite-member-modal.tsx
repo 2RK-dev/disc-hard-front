@@ -1,5 +1,6 @@
 "use client";
 
+import { StellarParticlesLoader } from "@/components/stellar-particles-loader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +12,12 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useServers } from "@/test/server-context";
+import { convertMemberListToUserList } from "@/lib/MemberUtils";
+import { getUserWithoutTheseUsers } from "@/services/user";
 import { Member } from "@/type/Member";
+import { User } from "@/type/User";
 import { Check, Search, UserPlus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface InviteMemberModalProps {
 	isOpen: boolean;
@@ -32,7 +35,22 @@ export function InviteMemberModal({
 	const [searchQuery, setSearchQuery] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedUser, setSelectedUser] = useState<Member | null>(null);
-	const { users } = useServers();
+	const [users, setUsers] = useState<User[]>([]);
+	const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+
+	useEffect(() => {
+		async function fetchUsers() {
+			const result = await getUserWithoutTheseUsers(
+				convertMemberListToUserList(existingMembers)
+			);
+			setUsers(result);
+			setTimeout(() => {
+				setIsLoadingUsers(false);
+			}, 2000);
+		}
+		setIsLoadingUsers(true);
+		fetchUsers();
+	}, []);
 
 	// Convertir les utilisateurs en membres potentiels
 	const availableMembers: Member[] = users
@@ -40,9 +58,8 @@ export function InviteMemberModal({
 		.map((user) => ({
 			id: user.id,
 			alias: user.name,
-			status: user.status,
 			role: "member",
-			avatar: user.avatar || "/placeholder.svg",
+			user: user,
 		}));
 
 	// Filtrer les membres disponibles selon la recherche
@@ -106,47 +123,58 @@ export function InviteMemberModal({
 						/>
 					</div>
 
-					<div className="max-h-[240px] overflow-y-auto space-y-1 pr-1">
-						{filteredMembers.length > 0 ? (
-							filteredMembers.map((member) => (
-								<div
-									key={member.id}
-									className={`flex items-center justify-between p-2 rounded-md cursor-pointer ${
-										selectedUser?.id === member.id
-											? "bg-[#404249]"
-											: "hover:bg-[#35373c]"
-									}`}
-									onClick={() => setSelectedUser(member)}>
-									<div className="flex items-center">
-										<div className="relative">
-											<Avatar className="h-8 w-8 mr-3">
-												<AvatarImage
-													src={member.user?.avatar || "/placeholder.svg"}
+					{isLoadingUsers ? (
+						<StellarParticlesLoader
+							showBackgroundColor={false}
+							speed={2}
+							loadingText="Chargment des utilisateurs"
+							particleSize={8}
+						/>
+					) : (
+						<div className="max-h-[240px] overflow-y-auto space-y-1 pr-1">
+							{filteredMembers.length > 0 ? (
+								filteredMembers.map((member) => (
+									<div
+										key={member.id}
+										className={`flex items-center justify-between p-2 rounded-md cursor-pointer ${
+											selectedUser?.id === member.id
+												? "bg-[#404249]"
+												: "hover:bg-[#35373c]"
+										}`}
+										onClick={() => setSelectedUser(member)}>
+										<div className="flex items-center">
+											<div className="relative">
+												<Avatar className="h-8 w-8 mr-3">
+													<AvatarImage
+														src={member.user?.avatar || "/placeholder.svg"}
+													/>
+													<AvatarFallback>{member.alias[0]}</AvatarFallback>
+												</Avatar>
+												<div
+													className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#313338] ${getStatusColor(
+														member.user?.status || "offline"
+													)}`}
 												/>
-												<AvatarFallback>{member.alias[0]}</AvatarFallback>
-											</Avatar>
-											<div
-												className={`absolute bottom-0 right-2 h-3 w-3 rounded-full border-2 border-[#313338] ${getStatusColor(
-													member.user?.status || "offline"
-												)}`}
-											/>
+											</div>
+											<span className="text-sm font-medium">
+												{member.alias}
+											</span>
 										</div>
-										<span className="text-sm font-medium">{member.alias}</span>
-									</div>
 
-									{selectedUser?.id === member.id && (
-										<Check className="h-5 w-5 text-green-500" />
-									)}
+										{selectedUser?.id === member.id && (
+											<Check className="h-5 w-5 text-green-500" />
+										)}
+									</div>
+								))
+							) : (
+								<div className="text-center py-4 text-gray-400">
+									{searchQuery
+										? "Aucun utilisateur trouvé"
+										: "Tous les utilisateurs sont déjà membres"}
 								</div>
-							))
-						) : (
-							<div className="text-center py-4 text-gray-400">
-								{searchQuery
-									? "Aucun utilisateur trouvé"
-									: "Tous les utilisateurs sont déjà membres"}
-							</div>
-						)}
-					</div>
+							)}
+						</div>
+					)}
 				</div>
 
 				<DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">

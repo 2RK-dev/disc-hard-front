@@ -62,7 +62,7 @@ export function RegisterForm() {
 						<p>Créer un compte</p>
 					</CardTitle>
 					<CardDescription className="text-gray-400">
-						Rejoignez des millions d'utilisateurs sur DiscHard
+						Rejoignez des millions d&apos;utilisateurs sur DiscHard
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -86,7 +86,7 @@ export function RegisterForm() {
 							<Label
 								htmlFor="username"
 								className="text-sm font-medium text-gray-300">
-								Nom d'utilisateur
+								Nom d&apos;utilisateur
 							</Label>
 							<Input
 								id="username"
@@ -175,9 +175,9 @@ export function RegisterForm() {
 							<Label
 								htmlFor="terms"
 								className="text-sm text-gray-300 flex flex-wrap whitespace-normal break-words">
-								J'ai lu et j'accepte les{" "}
+								J&apos;ai lu et j&apos;accepte les{" "}
 								<Link href="#" className="text-[#00a8fc] hover:underline">
-									Conditions d'utilisation
+									Conditions d&apos;utilisation
 								</Link>
 								et la
 								<Link href="#" className="text-[#00a8fc] hover:underline">

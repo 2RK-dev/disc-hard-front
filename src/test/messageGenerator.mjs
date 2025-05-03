@@ -1,38 +1,18 @@
-"use client";
+import fs from "fs";
+import { readFile } from "fs/promises";
 
-import { getMemberWithUserId } from "@/test/utils";
-import { Member } from "@/type/Member";
-import { Message } from "@/type/Message";
-import { Server } from "@/type/Server";
-import { User } from "@/type/User";
-import { createContext, useContext, useState, type ReactNode } from "react";
-import users from "./user.json";
+const getMemberWithUserId = (id, members) => {
+	if (!members) {
+		return createMemberFromUserId(id);
+	}
+	const find = members.find((member) => member.user?.id === id);
+	if (!find) {
+		throw new Error("Member not found");
+	}
+	return find;
+};
 
-interface ServerContextType {
-	servers: Server[];
-	currentUserId: number; // ID de l'utilisateur connecté
-	currentUser: User; // Utilisateur connecté
-	users: User[]; // Liste des utilisateurs disponibles
-	addServer: (
-		server: Omit<Server, "id" | "members" | "messages" | "creatorId">
-	) => void;
-	addMemberToServer: (serverId: number, member: Member) => void;
-	updateMemberRole: (
-		serverId: number,
-		memberId: number,
-		role: Member["role"]
-	) => void;
-	getServer: (serverId: number) => Server | undefined;
-	addMessage: (serverId: number, textContent: string) => void;
-	canManageRole: (currentUser: Member, targetMember: Member) => boolean;
-	getUserById: (userId: number) => User | undefined;
-}
-
-// Liste des utilisateurs disponibles
-const availableUsers: User[] = users as User[];
-
-// Convertir les utilisateurs en membres pour les serveurs
-const getUserAsMember = (user: User, role: Member["role"]): Member => {
+export const getUserAsMember = (user, role) => {
 	return {
 		id: user.id,
 		alias: user.name,
@@ -41,9 +21,12 @@ const getUserAsMember = (user: User, role: Member["role"]): Member => {
 	};
 };
 
-const now = new Date();
-// Créer des serveurs avec différents rôles pour l'utilisateur de test
-const createTestServers = (): Server[] => {
+const json = await readFile("./user.json", "utf-8");
+const users = JSON.parse(json);
+
+const availableUsers = users;
+
+const createTestServers = () => {
 	// Serveur où l'utilisateur de test est propriétaire
 	const ownerServerMembers = [
 		getUserAsMember(availableUsers[0], "owner"),
@@ -52,132 +35,101 @@ const createTestServers = (): Server[] => {
 		getUserAsMember(availableUsers[3], "member"),
 		getUserAsMember(availableUsers[7], "member"),
 	];
-	const ownerServer: Server = {
+	const ownerServer = {
 		id: 1,
 		name: "AI Scalability & Innovation",
 		description:
 			"Discussion entre leaders de l'industrie sur l'avenir des modèles d'IA, leur scalabilité et les défis éthiques à surmonter.",
 		members: ownerServerMembers,
 		messages: [
-			// 1ère session : Discussions pendant 1-10 minutes avec des espacements de 1-5 minutes
+			// 1ère session - Discussions initiales
 			{
 				id: 4031,
 				textContent: "Hey Elon, Mark! How's everything going?",
 				author: getMemberWithUserId(1, ownerServerMembers), // Test (Utilisateur)
-				timestamp: now.toISOString(),
+				timestamp: new Date("2025-04-25T08:00:00Z").toISOString(), // Premier message
 			},
 			{
 				id: 9032,
 				textContent:
 					"Hey, things are going well. Just working on some new ideas.",
 				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
-				timestamp: new Date(now.getTime() + 1000 * 60 * 2).toISOString(), // 2 minutes plus tard
+				timestamp: new Date("2025-04-25T08:02:00Z").toISOString(), // 2 minutes plus tard
 			},
 			{
 				id: 5394,
 				textContent:
 					"I'm brainstorming a few things myself, trying to stay ahead of the curve.",
 				author: getMemberWithUserId(3, ownerServerMembers), // Mark Zuckerberg
-				timestamp: new Date(now.getTime() + 1000 * 60 * 4).toISOString(), // 4 minutes plus tard
+				timestamp: new Date("2025-04-25T08:06:00Z").toISOString(), // 4 minutes plus tard
 			},
 			{
 				id: 6818,
 				textContent:
 					"Nice! I've been thinking about how to improve scalability for AI. What do you guys think?",
 				author: getMemberWithUserId(1, ownerServerMembers), // Test
-				timestamp: new Date(now.getTime() + 1000 * 60 * 7).toISOString(), // 7 minutes plus tard
+				timestamp: new Date("2025-04-25T08:13:00Z").toISOString(), // 7 minutes plus tard
 			},
+
+			// 2ème session - Discussions après une pause
 			{
 				id: 7448,
 				textContent:
 					"AI scalability is huge. We're working on some new models at X.",
 				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
-				timestamp: new Date(now.getTime() + 1000 * 60 * 9).toISOString(), // 9 minutes plus tard
+				timestamp: new Date("2025-04-25T08:30:00Z").toISOString(), // 17 minutes plus tard
 			},
 			{
 				id: 3260,
 				textContent:
 					"I agree, AI models will drive the next wave of innovation. How do we keep them ethical?",
 				author: getMemberWithUserId(3, ownerServerMembers), // Mark Zuckerberg
-				timestamp: new Date(now.getTime() + 1000 * 60 * 10).toISOString(), // 10 minutes plus tard
+				timestamp: new Date("2025-04-25T08:35:00Z").toISOString(), // 5 minutes plus tard
 			},
 			{
 				id: 3920,
 				textContent:
 					"Ethics are crucial. We need better regulation and transparency.",
 				author: getMemberWithUserId(1, ownerServerMembers), // Test
-				timestamp: new Date(now.getTime() + 1000 * 60 * 12).toISOString(), // 12 minutes plus tard
+				timestamp: new Date("2025-04-25T08:42:00Z").toISOString(), // 7 minutes plus tard
 			},
+
+			// 3ème session - Discussion après plusieurs heures
 			{
 				id: 1521,
 				textContent:
 					"I think we should aim to build models that can explain their decisions.",
 				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
-				timestamp: new Date(now.getTime() + 1000 * 60 * 15).toISOString(), // 15 minutes plus tard
+				timestamp: new Date("2025-04-25T12:00:00Z").toISOString(), // 3h30 plus tard
 			},
 			{
 				id: 7333,
 				textContent:
 					"Transparency is key. It's about building trust with users.",
 				author: getMemberWithUserId(3, ownerServerMembers), // Mark Zuckerberg
-				timestamp: new Date(now.getTime() + 1000 * 60 * 20).toISOString(), // 20 minutes plus tard
+				timestamp: new Date("2025-04-25T12:10:00Z").toISOString(), // 10 minutes plus tard
 			},
+
+			// 4ème session - Discussion finale avec des idées concrètes
 			{
 				id: 7694,
 				textContent:
 					"Agreed. So, let's discuss the next steps next week. I have some ideas on this.",
 				author: getMemberWithUserId(1, ownerServerMembers), // Test
-				timestamp: new Date(now.getTime() + 1000 * 60 * 25).toISOString(), // 25 minutes plus tard
+				timestamp: new Date("2025-04-25T12:25:00Z").toISOString(), // 15 minutes plus tard
 			},
-
-			// 2ème session : Discussions après quelques heures, espacées de 30 min à 1h
 			{
 				id: 8234,
-				textContent:
-					"Hey Mark, Elon, you still around? I was thinking about scaling AI models further.",
-				author: getMemberWithUserId(1, ownerServerMembers), // Test
-				timestamp: new Date(now.getTime() + 1000 * 60 * 4320).toISOString(), // 1 heure plus tard
+				textContent: "Looking forward to it. I'll prepare a proposal by then.",
+				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
+				timestamp: new Date("2025-04-25T12:30:00Z").toISOString(),
 			},
 			{
 				id: 6512,
 				textContent:
-					"Yeah, still here! Scaling AI requires huge computational power. What’s your plan?",
-				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
-				timestamp: new Date(now.getTime() + 1000 * 60 * 4380).toISOString(), // 1 heure 10 min plus tard
-			},
-			{
-				id: 7856,
-				textContent:
-					"I think focusing on smaller, specialized models could help reduce resource consumption. What do you think?",
+					"Great! Let's make sure to address scalability and ethical considerations together.",
 				author: getMemberWithUserId(3, ownerServerMembers), // Mark Zuckerberg
-				timestamp: new Date(now.getTime() + 1000 * 60 * 4500).toISOString(), // 1 heure 15 min plus tard
-			},
-			{
-				id: 9321,
-				textContent:
-					"That’s an interesting approach, Mark. Smaller models could definitely be more efficient.",
-				author: getMemberWithUserId(1, ownerServerMembers), // Test
-				timestamp: new Date(now.getTime() + 1000 * 60 * 4600).toISOString(), // 1 heure 17 min plus tard
-			},
-			{
-				id: 1125,
-				textContent:
-					"Let’s discuss how to deploy these models at scale. I’ll review some papers tonight.",
-				author: getMemberWithUserId(2, ownerServerMembers), // Elon Musk
-				timestamp: new Date(now.getTime() + 1000 * 60 * 4800).toISOString(), // 1 heure 20 min plus tard
-			},
-			{
-				id: 9322,
-				textContent:
-					"Great idea. Let’s have a more detailed meeting about this next week.",
-				author: getMemberWithUserId(3, ownerServerMembers), // Mark Zuckerberg
-				timestamp: new Date(now.getTime() + 1000 * 60 * 5000).toISOString(), // 1 heure 23 min plus tard
-			},
-			{
-				id: 9321,
-				textContent: "Looking forward to it. I'll prepare a proposal by then.",
-				author: getMemberWithUserId(1, ownerServerMembers), // Test
-				timestamp: new Date(now.getTime() + 1000 * 60 * 5200).toISOString(), // 1 heure 27 min plus tard
+				timestamp: new Date("2025-04-25T12:35:00Z").toISOString(),
 			},
 		],
 	};
@@ -190,7 +142,7 @@ const createTestServers = (): Server[] => {
 		getUserAsMember(availableUsers[6], "member"),
 		getUserAsMember(availableUsers[7], "member"),
 	];
-	const adminServer: Server = {
+	const adminServer = {
 		id: 2,
 		name: "Tech Hub",
 		description: "Discussions sur les dernières technologies",
@@ -312,7 +264,7 @@ const createTestServers = (): Server[] => {
 		getUserAsMember(availableUsers[3], "member"),
 		getUserAsMember(availableUsers[5], "member"),
 	];
-	const memberServer: Server = {
+	const memberServer = {
 		id: 3,
 		name: "AI Revolution",
 		description: "Tout sur l'intelligence artificielle",
@@ -420,7 +372,7 @@ const createTestServers = (): Server[] => {
 	};
 
 	// Serveur supplémentaire
-	const extraServer: Server = {
+	const extraServer = {
 		id: 4,
 		name: "Gaming Zone",
 		description: "Pour les passionnés de jeux vidéo",
@@ -436,165 +388,11 @@ const createTestServers = (): Server[] => {
 	return [ownerServer, adminServer, memberServer, extraServer];
 };
 
-const ServerContext = createContext<ServerContextType | undefined>(undefined);
-
-export function ServerProvider({ children }: { children: ReactNode }) {
-	const [servers, setServers] = useState<Server[]>(createTestServers());
-
-	// ID de l'utilisateur connecté (utilisateur de test)
-	const currentUserId = 1;
-	const currentUser = availableUsers.find((user) => user.id === currentUserId)!;
-
-	const addServer = (
-		newServer: Omit<Server, "id" | "members" | "messages" | "creatorId">
-	) => {
-		const newId = Math.max(...servers.map((s) => s.id)) + 1;
-		// Ajouter le créateur comme propriétaire du serveur
-		const initialMember: Member = {
-			id: currentUserId,
-			alias: currentUser.name,
-			user: currentUser,
-			role: "owner",
-		};
-
-		setServers([
-			...servers,
-			{
-				...newServer,
-				id: newId,
-				members: [initialMember],
-				messages: [],
-			},
-		]);
-	};
-
-	const addMemberToServer = (serverId: number, member: Member) => {
-		setServers(
-			servers.map((server) => {
-				if (server.id === serverId) {
-					// Vérifier si le membre existe déjà
-					const memberExists = server.members.some((m) => m.id === member.id);
-					if (memberExists) return server;
-
-					return {
-						...server,
-						members: [...server.members, member],
-					};
-				}
-				return server;
-			})
-		);
-	};
-
-	// Fonction pour vérifier si un utilisateur peut gérer le rôle d'un autre
-	const canManageRole = (currentUser: Member, targetMember: Member) => {
-		// Un membre normal ne peut pas modifier les rôles
-		if (currentUser.role === "member") return false;
-
-		// Un admin ne peut pas modifier un owner
-		if (currentUser.role === "admin" && targetMember.role === "owner")
-			return false;
-
-		// Un owner peut tout modifier
-		if (currentUser.role === "owner") return true;
-
-		// Un admin peut modifier un membre ou un autre admin
-		return currentUser.role === "admin" && targetMember.role !== "owner";
-	};
-
-	const updateMemberRole = (
-		serverId: number,
-		memberId: number,
-		role: Member["role"]
-	) => {
-		setServers(
-			servers.map((server) => {
-				if (server.id === serverId) {
-					// Trouver l'utilisateur actuel et le membre cible
-					const currentUserMember = server.members.find(
-						(m) => m.id === currentUserId
-					);
-					const targetMember = server.members.find((m) => m.id === memberId);
-
-					// Si l'un des deux n'existe pas, ne rien faire
-					if (!currentUserMember || !targetMember) return server;
-
-					// Vérifier les permissions
-					if (!canManageRole(currentUserMember, targetMember)) return server;
-
-					return {
-						...server,
-						members: server.members.map((member) =>
-							member.id === memberId ? { ...member, role } : member
-						),
-					};
-				}
-				return server;
-			})
-		);
-	};
-
-	const getServer = (serverId: number) => {
-		return servers.find((server) => server.id === serverId);
-	};
-
-	const getUserById = (userId: number) => {
-		return availableUsers.find((user) => user.id === userId);
-	};
-
-	const addMessage = (serverId: number, textContent: string) => {
-		setServers(
-			servers.map((server) => {
-				if (server.id === serverId) {
-					const newMessageId =
-						server.messages.length > 0
-							? Math.max(...server.messages.map((m) => m.id)) + 1
-							: 1;
-
-					const newMessage: Message = {
-						id: newMessageId,
-						textContent: textContent,
-						author: getMemberWithUserId(
-							currentUserId,
-							getServer(serverId)?.members
-						),
-						timestamp: new Date().toISOString(),
-					};
-
-					return {
-						...server,
-						messages: [...server.messages, newMessage],
-					};
-				}
-				return server;
-			})
-		);
-	};
-
-	return (
-		<ServerContext.Provider
-			value={{
-				servers,
-				currentUserId,
-				currentUser,
-				users: availableUsers,
-				addServer,
-				addMemberToServer,
-				updateMemberRole,
-				getServer,
-				addMessage,
-				canManageRole,
-				getUserById,
-			}}>
-			{children}
-		</ServerContext.Provider>
-	);
+// Sauvegarder le fichier JSON dans un fichier local
+function saveJsonToFile() {
+	const serverJson = createTestServers();
+	fs.writeFileSync("serverData.json", JSON.stringify(serverJson, null, 2));
+	console.log("JSON saved to serverData.json");
 }
 
-export function useServers() {
-	const context = useContext(ServerContext);
-	if (context === undefined) {
-		throw new Error("useServers must be used within a ServerProvider");
-	}
-	return context;
-}
+saveJsonToFile();
