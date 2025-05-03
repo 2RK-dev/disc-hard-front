@@ -23,8 +23,9 @@ interface SalonSidebarProps {
 	activePage?: string;
 }
 
-export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
+export function SalonSidebar() {
 	const router = useRouter();
+	const [activepage, setActivePage] = useState("home");
 	const [currentUser, setCurrentUser] = useState<User>();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [salons, setSalons] = useState<Server[]>([]);
@@ -69,10 +70,13 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 						<Link href="/home">
 							<Button
 								className={`h-12 w-12 rounded-[24px] ${
-									activePage === "dm" || "home"
+									activepage === "dm" || "home"
 										? "bg-white hover:bg-white"
 										: "bg-[#5865f2] hover:bg-[#4752c4]"
-								} flex items-center relative justify-center hover:rounded-[16px] transition-all duration-200 `}>
+								} flex items-center relative justify-center hover:rounded-[16px] transition-all duration-200 `}
+								onClick={() => {
+									setActivePage("home");
+								}}>
 								<Image
 									src="/Logo-transpa-original-without.png"
 									alt="DiscHard"
@@ -95,10 +99,13 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 						<Link href="/profile">
 							<Button
 								className={`h-12 w-12 rounded-[24px] ${
-									activePage === "profile"
+									activepage === "profile"
 										? "bg-[#5865f2]"
 										: "bg-[#313338] hover:bg-[#5865f2]"
-								} flex items-center justify-center hover:rounded-[16px] transition-all duration-200`}>
+								} flex items-center justify-center hover:rounded-[16px] transition-all duration-200`}
+								onClick={() => {
+									setActivePage("profile");
+								}}>
 								<UserIcon className="h-5 w-5 text-white" />
 							</Button>
 						</Link>
@@ -118,10 +125,13 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 							<Link href={`/servers/${salon.id}`}>
 								<Button
 									className={`h-12 w-12 rounded-[24px] bg-[#313338] flex items-center justify-center hover:rounded-[16px] ${
-										activePage === `salon-${salon.id}`
+										activepage === `salon-${salon.id}`
 											? "bg-[#5865f2]"
 											: "hover:bg-[#5865f2]"
-									} transition-all duration-200`}>
+									} transition-all duration-200`}
+									onClick={() => {
+										setActivePage(`salon-${salon.id}`);
+									}}>
 									<span className="text-white font-semibold text-xl">
 										{salon.name.charAt(0)}
 									</span>
