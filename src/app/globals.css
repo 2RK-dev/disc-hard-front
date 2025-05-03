@@ -120,3 +120,20 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+/* Animation pour le scintillement des étoiles */
+@keyframes twinkle {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.3;
+	}
+}
+
+@layer utilities {
+	.animate-twinkle {
+		animation: twinkle 3s ease-in-out infinite;
+	}
+}

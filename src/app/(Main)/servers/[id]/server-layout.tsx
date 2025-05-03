@@ -1,11 +1,17 @@
 "use client";
 
 import Loading from "@/components/loading-component";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { getCookie } from "@/services/cookie";
-import { getSalonById } from "@/services/salon";
-import { useServers } from "@/test/server-context";
+import { UpdateMemberRole } from "@/services/member";
+import { addMemberToSalon, getSalonById } from "@/services/salon";
 import { Member, Role } from "@/type/Member";
 import { Server } from "@/type/Server";
 import { User } from "@/type/User";
@@ -22,7 +28,6 @@ interface ServerLayoutProps {
 
 export function ServerLayout({ serverId }: ServerLayoutProps) {
 	const [currentUser, setCurrentUser] = useState<User>();
-	const { addMemberToServer, updateMemberRole } = useServers();
 	const [currentSalon, setCurrentSalon] = useState<Server | null>(null);
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
 
@@ -46,11 +51,14 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 				}
 			}
 		};
-		fetchCurrentSalon();
+
+		setTimeout(() => {
+			fetchCurrentSalon();
+		}, 2000);
 	}, [currentUser, serverId]);
 
 	if (currentSalon === null) {
-		return <Loading></Loading>;
+		return <Loading />;
 	}
 
 	const currentUserMember = currentSalon.members.find(
@@ -73,12 +81,21 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 		}
 	};
 
-	const handleInviteMember = (member: Member) => {
-		addMemberToServer(serverId, member);
+	const handleInviteMember = async (member: Member) => {
+		const updatedSalon = await addMemberToSalon(currentSalon.id, member);
+		if (updatedSalon) {
+			setCurrentSalon(updatedSalon);
+		}
 	};
 
-	const handleChangeRole = (memberId: number, role: Member["role"]) => {
-		updateMemberRole(serverId, memberId, role);
+	const handleChangeRole = async (member: Member, role: Member["role"]) => {
+		const UpdatedMember = await UpdateMemberRole(member, role);
+		currentSalon.members.forEach((m) => {
+			if (m.id === UpdatedMember.id) {
+				m.role = UpdatedMember.role;
+			}
+		});
+		setCurrentSalon({ ...currentSalon });
 	};
 
 	const getroleIndex = (role: string) => {
@@ -109,40 +126,54 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 
 	return (
 		<div className="flex-1 flex flex-col bg-[#313338]">
-			<div className="h-12 border-b border-[#1e1f22] shadow-sm flex items-center px-4">
-				<h2 className="font-bold text-white">{currentSalon.name}</h2>
-			</div>
+			<div className=" border-b border-[#1e1f22] shadow-sm flex items-center px-4"></div>
 
 			<div className="flex-1 flex min-h-0 min-w-0">
 				<div className="flex-1 flex flex-col min-h-0 min-w-0">
-					<div className="bg-[#2b2d31] rounded-lg p-6 m-6 mb-0">
-						<div className="flex items-center mb-4">
-							<div className="h-16 w-16 rounded-full bg-[#5865f2] flex items-center justify-center text-2xl font-bold mr-4">
-								{currentSalon.name.charAt(0).toUpperCase()}
-							</div>
-							<div>
-								<h1 className="text-2xl font-bold">{currentSalon.name}</h1>
-								<p className="text-gray-400">{currentSalon.description}</p>
-							</div>
-						</div>
-						<div className="flex items-center text-gray-400 text-sm">
-							<Users className="h-4 w-4 mr-1" />
-							<span>{currentSalon.members.length} membres</span>
-						</div>
+					<Accordion type="single" collapsible className="w-full">
+						<AccordionItem value="item-1">
+							<AccordionTrigger className="bg-[#2b2d31] px-6 py-4 rounded-t-xl hover:bg-[#3a3c41] transition-colors">
+								<h2 className="text-lg sm:text-xl font-semibold text-white">
+									{currentSalon.name}
+								</h2>
+							</AccordionTrigger>
 
-						<div className="flex flex-col sm:flex-row gap-4 mt-4">
-							<Button
-								className="bg-[#5865f2] hover:bg-[#4752c4] text-white"
-								onClick={() => setIsInviteModalOpen(true)}>
-								<Plus className="h-5 w-5 mr-2" /> Inviter des amis
-							</Button>
-							<Button
-								variant="outline"
-								className="border-gray-600 text-gray-300 hover:bg-[#3f4147]">
-								<Settings className="h-5 w-5 mr-2" /> Paramètres du serveur
-							</Button>
-						</div>
-					</div>
+							<AccordionContent className="bg-[#2b2d31] px-6 py-6 rounded-b-xl border-t border-[#3f4147]">
+								<div className="flex items-start gap-4">
+									<div className="h-16 w-16 rounded-full bg-[#5865f2] flex items-center justify-center text-2xl font-bold text-white shadow-md">
+										{currentSalon.name.charAt(0).toUpperCase()}
+									</div>
+									<div className="flex-1">
+										<h1 className="text-xl font-semibold text-white">
+											{currentSalon.name}
+										</h1>
+										<p className="text-sm text-gray-400 mt-1">
+											{currentSalon.description}
+										</p>
+
+										<div className="flex items-center text-gray-400 text-sm mt-3">
+											<Users className="h-4 w-4 mr-1" />
+											<span>{currentSalon.members.length} membres</span>
+										</div>
+
+										<div className="flex flex-col sm:flex-row gap-3 mt-5">
+											<Button
+												className="bg-[#5865f2] hover:bg-[#4752c4] text-white transition"
+												onClick={() => setIsInviteModalOpen(true)}>
+												<Plus className="h-5 w-5 mr-2" /> Inviter des amis
+											</Button>
+											<Button
+												variant="outline"
+												className="border border-gray-600 text-gray-300 hover:bg-[#3f4147] transition">
+												<Settings className="h-5 w-5 mr-2" /> Paramètres du
+												serveur
+											</Button>
+										</div>
+									</div>
+								</div>
+							</AccordionContent>
+						</AccordionItem>
+					</Accordion>
 
 					{/* Zone de chat */}
 					<ServerChat serverId={serverId} />
@@ -209,10 +240,10 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 											{canManageRoles && (
 												<MemberRoleMenu
 													member={member}
-													serverId={serverId}
-													onChangeRole={(role: Role) =>
-														handleChangeRole(member.id, role)
-													}
+													salon={currentSalon}
+													onChangeRole={(role: Role) => {
+														handleChangeRole(member, role);
+													}}
 												/>
 											)}
 										</div>
@@ -271,9 +302,9 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 											{canManageRoles && (
 												<MemberRoleMenu
 													member={member}
-													serverId={serverId}
+													salon={currentSalon}
 													onChangeRole={(role: Role) =>
-														handleChangeRole(member.id, role)
+														handleChangeRole(member, role)
 													}
 												/>
 											)}
@@ -289,7 +320,6 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 			<div className="h-[52px] bg-[#232428] px-2 flex items-center">
 				<UserDropdownMenu />
 			</div>
-			{/* Modal d'invitation de membres */}
 			<InviteMemberModal
 				isOpen={isInviteModalOpen}
 				onClose={() => setIsInviteModalOpen(false)}
