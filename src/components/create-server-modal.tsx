@@ -14,27 +14,44 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { getCookie } from "@/services/cookie";
+import { User } from "@/type/User";
 import { Upload } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CreateServerModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	onCreateServer: (server: {
-		name: string;
-		description: string;
-		initial: string;
-	}) => void;
+	onCreateSalon: (
+		salonName: string,
+		description: string,
+		creator: User
+	) => void;
 }
 
 export function CreateServerModal({
 	isOpen,
 	onClose,
-	onCreateServer,
+	onCreateSalon,
 }: CreateServerModalProps) {
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [currentUser, setCurrentUser] = useState<User>();
+
+	useEffect(() => {
+		const fetchCurrentUser = async () => {
+			const userCookie = await getCookie("currentUser");
+			if (userCookie) {
+				setCurrentUser(JSON.parse(userCookie));
+			}
+		};
+
+		fetchCurrentUser();
+	}, []);
+	if (!currentUser) {
+		return null;
+	}
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -45,11 +62,7 @@ export function CreateServerModal({
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			// Créer le serveur avec les données du formulaire
-			onCreateServer({
-				name,
-				description,
-				initial: name.charAt(0).toUpperCase(),
-			});
+			onCreateSalon(name, description, currentUser);
 
 			// Réinitialiser le formulaire
 			setName("");
