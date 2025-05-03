@@ -1,4 +1,3 @@
-import { ServerProvider } from "@/test/server-context";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -27,7 +26,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<ServerProvider>{children}</ServerProvider>
+				{children}
 			</body>
 		</html>
 	);
