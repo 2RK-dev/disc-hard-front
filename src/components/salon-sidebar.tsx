@@ -9,8 +9,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { getCookie } from "@/services/cookie";
-import { getMySalons } from "@/services/salon";
-import { useServers } from "@/test/server-context";
+import { addSalon, getMySalons } from "@/services/salon";
 import { Server } from "@/type/Server";
 import { User } from "@/type/User";
 import { Download, Plus, User as UserIcon } from "lucide-react";
@@ -29,7 +28,6 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 	const [currentUser, setCurrentUser] = useState<User>();
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [salons, setSalons] = useState<Server[]>([]);
-	const { addServer } = useServers();
 
 	useEffect(() => {
 		const fetchCurrentUser = async () => {
@@ -52,17 +50,15 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 		fetchSalons();
 	}, [currentUser]);
 
-	const handleCreateServer = (serverData: {
-		name: string;
-		description: string;
-		initial: string;
-	}) => {
-		// Ajouter le nouveau serveur
-		addServer(serverData);
+	const handleCreateSalon = async (
+		salonName: string,
+		description: string,
+		creator: User
+	) => {
+		const newSalon = await addSalon(salonName, description, creator);
+		setSalons((prevSalons) => [...prevSalons, newSalon]);
 
-		// Rediriger vers le nouveau serveur (le dernier de la liste + 1)
-		const newServerId = salons.length + 1;
-		router.push(`/servers/${newServerId}`);
+		router.push(`/servers/${newSalon.id}`);
 	};
 
 	return (
@@ -172,7 +168,7 @@ export function SalonSidebar({ activePage = "home" }: SalonSidebarProps) {
 			<CreateServerModal
 				isOpen={isCreateModalOpen}
 				onClose={() => setIsCreateModalOpen(false)}
-				onCreateServer={handleCreateServer}
+				onCreateSalon={handleCreateSalon}
 			/>
 		</div>
 	);
