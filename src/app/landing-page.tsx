@@ -46,14 +46,14 @@ export function LandingPage() {
 				</h1>
 				<p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">
 					...où vous pouvez rejoindre un club scolaire, un groupe de gamers, ou
-					une communauté d'art mondiale. Un endroit où vous pouvez simplement
-					passer du temps avec vos amis. Un endroit qui rend facile de parler
-					tous les jours et de se retrouver plus souvent.
+					une communauté d&apos;art mondiale. Un endroit où vous pouvez
+					simplement passer du temps avec vos amis. Un endroit qui rend facile
+					de parler tous les jours et de se retrouver plus souvent.
 				</p>
 				<div className="flex flex-col md:flex-row justify-center gap-4">
 					<Link href="/register">
 						<Button className="bg-white text-black hover:bg-gray-200 rounded-full px-8 py-6 text-lg">
-							S'inscrire
+							S&apos;inscrire
 						</Button>
 					</Link>
 					<Link href="/login">
@@ -147,7 +147,7 @@ export function LandingPage() {
 					</h2>
 					<Link href="/register">
 						<Button className="bg-[#5865F2] hover:bg-[#4752c4] text-white rounded-full px-8 py-6 text-lg">
-							S'inscrire maintenant <ArrowRight className="ml-2 h-5 w-5" />
+							S&apos;inscrire maintenant <ArrowRight className="ml-2 h-5 w-5" />
 						</Button>
 					</Link>
 				</div>
@@ -312,7 +312,7 @@ export function LandingPage() {
 						</div>
 						<Link href="/register">
 							<Button className="bg-[#5865F2] hover:bg-[#4752c4] text-white rounded-full">
-								S'inscrire
+								S&apos;inscrire
 							</Button>
 						</Link>
 					</div>
