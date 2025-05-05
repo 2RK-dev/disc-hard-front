@@ -54,7 +54,7 @@ export const fetchUserList = async (): Promise<{
 }
 
 export const FetchUserErrors = {
-    NOT_FOUND: "NOT FOUND",
+    NOT_FOUND: "NOT_FOUND",
     ...CommonErrors,
 } as const;
 
@@ -72,7 +72,7 @@ export const fetchUser = async (userId: string): Promise<{
         if (!(e instanceof AxiosError)) return {success: false, error: "UNKNOWN_ERROR"};
         switch (e.response?.status) {
             case 404:
-                return {success: false, error: "NOT FOUND"};
+                return {success: false, error: "NOT_FOUND"};
             case 500:
                 return {success: false, error: "SERVER_ERROR"};
         }
