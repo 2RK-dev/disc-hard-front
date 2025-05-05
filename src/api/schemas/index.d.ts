@@ -1,6 +1,7 @@
 import {
     ConversationListSchema,
     GroupInfoSchema,
+    GroupSchema,
     MemberListSchema,
     MemberSchema,
     MessagesPagedSchema,
@@ -18,13 +19,13 @@ import {
     UserStatusUpdateSchema
 } from "./user";
 import { MessageSchema } from "./message";
-import { CreateGroupSchema, GroupInviteSchema } from "@/api/schemas/group";
+import { CreateGroupSchema, GroupInviteSchema } from "./group";
 import {
     LoginRequestSchema,
     LoginResponseSchema,
     PasswordChangeSchema,
     RegistrationRequestSchema
-} from "@/api/schemas/auth";
+} from "./auth";
 
 export const Dto = {
     // Common and HTTP schemas
@@ -33,6 +34,7 @@ export const Dto = {
     MessageSchema,
     MemberListSchema,
     GroupInfoSchema,
+    GroupSchema,
     MessagesPagedSchema,
     ConversationListSchema,
     UserListSchema,

@@ -35,6 +35,11 @@ export const GroupInfoSchema = ConversationBaseSchema.extend({
     createdAt: z.string().datetime(),
 });
 
+export const GroupSchema = z.object({
+    info: GroupInfoSchema,
+    members: z.array(MemberSchema),
+});
+
 export const ConversationListSchema = z.array(
     z.union([PrivateConversationSchema, GroupInfoSchema])
 );
