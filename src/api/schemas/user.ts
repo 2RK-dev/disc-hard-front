@@ -6,7 +6,7 @@ export const UserSchema = z.object({
     id: z.string(),
     name: z.string(),
     email: z.string(),
-    createdAt: z.string(),
+    createdAt: z.string().datetime(),
     avatar: z.string().optional(),
     status: UserStatusSchema,
 });
