@@ -17,7 +17,7 @@ export const updateProfile = async (data: DtoProfileUpdateRequest): Promise<{
     error?: UpdateProfileError,
 }> => {
     try {
-        const {data: responseData} = await http.priv.patch<DtoProfileUpdateRequest>("/profile", data);
+        const {data: responseData} = await http.priv.patch<DtoProfileUpdateResponse>("/profile", data);
         const parsed = Dto.ProfileUpdateSchema.Response.parse(responseData);
         return {success: true, data: parsed};
     } catch (e) {
