@@ -1,4 +1,5 @@
 import {
+    ConversationEventSchema,
     ConversationListSchema,
     GroupInfoSchema,
     GroupSchema,
@@ -20,12 +21,7 @@ import {
 } from "./user";
 import { MessageSchema } from "./message";
 import { CreateGroupSchema, GroupInviteSchema } from "./group";
-import {
-    LoginRequestSchema,
-    LoginResponseSchema,
-    PasswordChangeSchema,
-    RegistrationRequestSchema
-} from "./auth";
+import { LoginRequestSchema, LoginResponseSchema, PasswordChangeSchema, RegistrationRequestSchema } from "./auth";
 
 export const Dto = {
     // Common and HTTP schemas
@@ -57,4 +53,5 @@ export const Dto = {
     TypingIndicatorSchema,
     UpdateUserStatusSchema,
     UserStatusUpdateSchema,
+    ConversationEventSchema,
 };
