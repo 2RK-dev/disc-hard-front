@@ -41,7 +41,7 @@ export const GroupSchema = z.object({
 });
 
 export const ConversationListSchema = z.array(
-    z.union([PrivateConversationSchema, GroupInfoSchema])
+    z.discriminatedUnion("type", [PrivateConversationSchema, GroupInfoSchema])
 );
 
 export const SendMessageSchema = z.object({
@@ -65,3 +65,48 @@ export const TypingIndicatorSchema = z.object({
     isTyping: z.boolean(),
     timestamp: z.string().datetime(),
 });
+
+export const ConversationEventBaseSchema = z.object({
+    eventType: z.enum([
+        "conversation_created",
+        "conversation_updated",
+        "members_added",
+        "members_removed"
+    ]),
+    conversationId: z.number(),
+    timestamp: z.string().datetime(),
+});
+
+export const ConversationCreatedSchema = ConversationEventBaseSchema.extend({
+    eventType: z.literal("conversation_created"),
+    type: z.enum(["private", "group"]),
+    name: z.string().optional(),
+    createdByMemberId: z.number(),
+    members: z.array(MemberSchema),
+});
+
+export const ConversationUpdatedSchema = ConversationEventBaseSchema.extend({
+    eventType: z.literal("conversation_updated"),
+    name: z.string().optional(),
+    description: z.string().optional(),
+    updatedByMemberId: z.number(),
+});
+
+export const MembersAddedSchema = ConversationEventBaseSchema.extend({
+    eventType: z.literal("members_added"),
+    members: z.array(MemberSchema),
+    addedByMemberId: z.number(),
+});
+
+export const MembersRemovedSchema = ConversationEventBaseSchema.extend({
+    eventType: z.literal("members_removed"),
+    memberIds: z.array(z.number()),
+    removedByMemberId: z.number().optional(),
+});
+
+export const ConversationEventSchema = z.discriminatedUnion("eventType", [
+    ConversationCreatedSchema,
+    ConversationUpdatedSchema,
+    MembersAddedSchema,
+    MembersRemovedSchema
+]);
