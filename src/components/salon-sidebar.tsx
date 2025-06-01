@@ -19,10 +19,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CreateServerModal } from "./create-server-modal";
 
-interface SalonSidebarProps {
-	activePage?: string;
-}
-
 export function SalonSidebar() {
 	const router = useRouter();
 	const [activepage, setActivePage] = useState("home");
