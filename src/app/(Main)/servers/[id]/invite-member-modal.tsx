@@ -50,7 +50,7 @@ export function InviteMemberModal({
 		}
 		setIsLoadingUsers(true);
 		fetchUsers();
-	}, []);
+	}, [existingMembers]);
 
 	// Convertir les utilisateurs en membres potentiels
 	const availableMembers: Member[] = users

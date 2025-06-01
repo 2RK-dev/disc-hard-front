@@ -46,7 +46,7 @@ export function MemberRoleMenu({
 		} else {
 			setCanManage(false);
 		}
-	}, [currentUser, member]);
+	}, [currentUserMember, member]);
 
 	if (!currentUserMember) return null;
 
