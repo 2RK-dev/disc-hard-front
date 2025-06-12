@@ -20,7 +20,6 @@ import { useEffect, useState } from "react";
 import { InviteMemberModal } from "./invite-member-modal";
 import { MemberRoleMenu } from "./member-role-menu";
 import { ServerChat } from "./server-chat";
-import { UserDropdownMenu } from "./user-dropdown-menu";
 
 interface ServerLayoutProps {
 	serverId: number;
@@ -54,7 +53,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 
 		setTimeout(() => {
 			fetchCurrentSalon();
-		}, 2000);
+		}, 1000);
 	}, [currentUser, serverId]);
 
 	if (currentSalon === null) {
@@ -125,7 +124,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 	);
 
 	return (
-		<div className="flex-1 flex flex-col bg-[#313338]">
+		<div className="flex-1 flex flex-col bg-[#313338] min-h-0">
 			<div className=" border-b border-[#1e1f22] shadow-sm flex items-center px-4"></div>
 
 			<div className="flex-1 flex min-h-0 min-w-0">
@@ -315,10 +314,6 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 						)}
 					</div>
 				</div>
-			</div>
-
-			<div className="h-[52px] bg-[#232428] px-2 flex items-center">
-				<UserDropdownMenu />
 			</div>
 			<InviteMemberModal
 				isOpen={isInviteModalOpen}

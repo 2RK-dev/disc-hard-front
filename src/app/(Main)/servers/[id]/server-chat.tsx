@@ -54,7 +54,7 @@ export function ServerChat({ serverId }: ServerChatProps) {
 			}
 			setTimeout(() => {
 				setLoading(false);
-			}, 10000);
+			}, 1000);
 		};
 		setLoading(true);
 		fetchCurrentSalon();
