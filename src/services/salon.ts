@@ -1,6 +1,6 @@
 "use server";
 
-import data from "@/test/serverData.json";
+import data from "@/test/fake_servers.json";
 import { Member } from "@/type/Member";
 import { Message } from "@/type/Message";
 import { Server } from "@/type/Server";
@@ -10,7 +10,7 @@ const salons = data as Server[];
 
 export async function getMySalons(userId: number): Promise<Server[]> {
 	return salons.filter((a_salon) =>
-		a_salon.members.some((member) => member.id === userId)
+		a_salon.members.some((member) => member.user?.id === userId)
 	);
 }
 
