@@ -1,6 +1,5 @@
 import z from "zod";
 import { UserSchema } from "./user";
-import { MessageSchema } from "./message";
 import { PageSchema } from "./pagination";
 
 export const MemberSchema = z.object({
@@ -12,6 +11,13 @@ export const MemberSchema = z.object({
 
 export const MemberListSchema = z.array(MemberSchema);
 
+export const MessageSchema = z.object({
+    id: z.number(),
+    type: z.enum<string, ["text"]>(["text"]).default("text"),
+    textContent: z.string().default(""),
+    timestamp: z.string().datetime(),
+    author: MemberSchema,
+});
 export const MessagesPagedSchema = z.object({
     messages: MessageSchema.array(),
     page: PageSchema
