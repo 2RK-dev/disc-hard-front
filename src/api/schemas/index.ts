@@ -4,7 +4,7 @@ import {
     GroupInfoSchema,
     GroupSchema,
     MemberListSchema,
-    MemberSchema,
+    MemberSchema, MessageSchema,
     MessagesPagedSchema,
     ReceivedMessageSchema,
     SendMessageSchema,
@@ -19,7 +19,6 @@ import {
     UserSchema,
     UserStatusUpdateSchema
 } from "./user";
-import { MessageSchema } from "./message";
 import { CreateGroupSchema, GroupInviteSchema } from "./group";
 import { LoginRequestSchema, LoginResponseSchema, PasswordChangeSchema, RegistrationRequestSchema } from "./auth";
 

@@ -3,10 +3,10 @@ import z from "zod";
 const UserStatusSchema = z.enum(["online", "idle", "dnd", "offline"]);
 
 export const UserSchema = z.object({
-    id: z.string(),
+    id: z.number(),
     name: z.string(),
     email: z.string(),
-    createdAt: z.string().datetime(),
+    createdAt: z.string().datetime().optional(),
     avatar: z.string().optional(),
     status: UserStatusSchema,
 });

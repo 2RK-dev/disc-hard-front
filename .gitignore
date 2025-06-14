@@ -42,3 +42,5 @@ next-env.d.ts
 
 # IDEA project configuration
 .idea
+
+remarks.md
