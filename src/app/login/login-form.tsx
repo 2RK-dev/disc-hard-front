@@ -32,8 +32,6 @@ export function LoginForm() {
 		e.preventDefault();
 		setIsLoading(true);
 
-		// Simuler une connexion
-
 		login(email, password)
 			.then((finduser: User | null) => {
 				if (!finduser) {
