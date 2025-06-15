@@ -35,3 +35,16 @@ export async function getLastUserId(): Promise<number> {
 	}
 	return lastUser.id;
 }
+
+export async function login(
+	email: string,
+	password: string
+): Promise<User | null> {
+	const user = users.find(
+		(user) => user.email === email && password === password
+	);
+	if (!user) {
+		return null;
+	}
+	return user;
+}
