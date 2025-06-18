@@ -100,7 +100,7 @@ export const GroupInviteErrors = {
 
 export type GroupInviteError = typeof GroupInviteErrors[keyof typeof GroupInviteErrors];
 
-export const inviteToGroup = async (groupId: string, data: DtoGroupInvite): Promise<{
+export const inviteToGroup = async (groupId: number, data: DtoGroupInvite): Promise<{
     success: boolean;
     error?: GroupInviteError;
 }> => {
