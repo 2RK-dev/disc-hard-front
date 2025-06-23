@@ -37,10 +37,3 @@ export default function HomeLayout({
 	);
 }
 
-const div = () => {
-	return (
-		<div className="h-[52px] bg-[#232428] px-2 flex items-center">
-			<UserDropdownMenu />
-		</div>
-	);
-};
