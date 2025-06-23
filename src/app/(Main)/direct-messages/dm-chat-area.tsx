@@ -30,7 +30,7 @@ interface DMChatAreaProps {
 
 export function DMChatArea({ selectedDM }: DMChatAreaProps) {
 	const [message, setMessage] = useState("");
-	const [YourFriends, setYourFriends] = useState<Member | null>(null);
+const [yourFriend, setYourFriend] = useState<Member | null>(null);
 	const [DMContent, setDMContent] = useState<Server | null>(null);
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
 	const [currentUserAsMember, setCurrentUserAsMember] = useState<Member | null>(
