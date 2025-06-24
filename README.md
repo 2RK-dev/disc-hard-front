@@ -191,6 +191,47 @@ npm run dev
 
 ---
 
+## 🧪 Contract Testing (OpenAPI)
+
+This project supports contract testing to ensure the frontend API client is always compliant with the backend OpenAPI spec.
+
+### Prerequisites
+- Node.js v18+
+- npm (or yarn)
+- The following dev dependencies are used: `@stoplight/prism-cli`, `wait-on`, `vitest`, `concurrently`, `node-fetch`
+
+### How it works
+- The OpenAPI spec (`rest.yml` and referenced files) is always fetched from the backend repo, never copied.
+- The Prism mock server is started locally using the downloaded spec.
+- Contract tests are run against the Prism server using Vitest.
+
+### Running Contract Tests Locally
+
+```bash
+npm run test:contract
+```
+This will:
+1. Fetch the latest OpenAPI spec from the backend repo
+2. Start the Prism mock server on port 4010
+3. Wait for Prism to be ready
+4. Run Vitest contract tests in `contract-tests/`
+
+You can override the API base URL by editing `.env.test`.
+
+### Updating the Spec
+- If the backend spec adds new references, update the list of files in `scripts/fetch-openapi-spec.mjs`.
+- Always fetch, never copy the spec manually.
+
+### CI Integration
+- The CI pipeline should run `npm run test:contract` on each push/PR to ensure contract compliance.
+
+### References
+- [Prism Documentation](https://meta.stoplight.io/docs/prism/)
+- [wait-on NPM package](https://www.npmjs.com/package/wait-on)
+- [Vitest Documentation](https://vitest.dev/)
+
+---
+
 ## 📚 Contribution
 
 Contributions are welcome!  

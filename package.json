@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fetch:spec": "node ./scripts/fetch-openapi-spec.mjs",
+    "mock": "prism mock openapi/rest.yml -p 4010 --errors --cors",
+    "test:contract": "npm run fetch:spec && concurrently -k -s first -n prism,vitest \"npm run mock\" \"wait-on tcp:4010 && vitest run --dir contract-tests\""
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.8",
@@ -36,14 +39,20 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@stoplight/prism-cli": "^4.14.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^8.2.2",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "node-fetch": "^3.3.2",
+    "prismjs": "^1.29.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.8",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^1.6.1",
+    "wait-on": "^7.2.0"
   }
 }
