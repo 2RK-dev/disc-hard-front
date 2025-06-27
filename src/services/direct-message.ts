@@ -13,7 +13,8 @@ export async function getMyDirectMessagesList(
 ): Promise<DirectMessageList[]> {
 	return dmServers
 		.filter((server) =>
-			server.members.some((member) => member.user?.id === userId)
+			server.members.some((member) => member.user?.id === userId) &&
+			server.members.length === 2
 		)
 		.map((server) => ({
 			user: server.members.find(
