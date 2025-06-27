@@ -1,18 +1,16 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { getCookie } from "@/services/cookie";
-import { getDirectMessageByID } from "@/services/direct-message";
-import { Member } from "@/type/Member";
-import { Message } from "@/type/Message";
-import { Server } from "@/type/Server";
-import { User } from "@/type/User";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Input} from "@/components/ui/input";
+import {ScrollArea} from "@/components/ui/scroll-area";
+import {getDirectMessageByID} from "@/services/direct-message";
+import {Member} from "@/type/Member";
+import {Message} from "@/type/Message";
+import {Server} from "@/type/Server";
 import {
 	Bell,
-	GiftIcon as GIF,
 	Gift,
+	GiftIcon as GIF,
 	HelpCircle,
 	Phone,
 	Pin,
@@ -22,8 +20,9 @@ import {
 	Sticker,
 	Video,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Image from "next/image";
+import {useCurrentUserStore} from "@/contexts/userStore";
 
 interface DMChatAreaProps {
 	selectedDM: number | null;
@@ -33,27 +32,11 @@ export function DMChatArea({ selectedDM }: DMChatAreaProps) {
 	const [message, setMessage] = useState("");
 	const [YourFriend, setYourFriend] = useState<Member | null>(null);
 	const [DMContent, setDMContent] = useState<Server | null>(null);
-	const [currentUser, setCurrentUser] = useState<User | null>(null);
+	const currentUser = useCurrentUserStore((s=> s.currentUser));
 	const [currentUserAsMember, setCurrentUserAsMember] = useState<Member | null>(
 		null
 	);
 	const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const fetchCurrentUser = async () => {
-			const userCookie = await getCookie("currentUser");
-			if (userCookie) {
-				try {
-					const user: User = JSON.parse(userCookie);
-					setCurrentUser(user);
-				} catch (error) {
-					console.error("Failed to parse current user cookie:", error);
-				}
-			}
-		};
-
-		fetchCurrentUser();
-	}, []);
 
 	useEffect(() => {
 		if (!DMContent) return;
@@ -69,8 +52,7 @@ export function DMChatArea({ selectedDM }: DMChatAreaProps) {
 
 	useEffect(() => {
 		if (selectedDM && currentUser) {
-			const fetchDMContent = async () => {
-				await getDirectMessageByID(selectedDM)
+			getDirectMessageByID(selectedDM)
 					.then((dmContent) => {
 						setDMContent(dmContent);
 						if (dmContent) {
@@ -89,9 +71,6 @@ export function DMChatArea({ selectedDM }: DMChatAreaProps) {
 					.catch((error) => {
 						console.error("Failed to fetch DM content:", error);
 					});
-			};
-
-			fetchDMContent();
 		}
 	}, [selectedDM, currentUser]);
 
