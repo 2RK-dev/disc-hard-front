@@ -13,8 +13,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { setCookie } from "@/services/cookie";
-import user from "@/test/user.json";
+import { useCurrentUserStore } from "@/contexts/userStore";
+import { login } from "@/services/user";
+import { User } from "@/type/User";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,27 +25,29 @@ export function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const setCurrentUser = useCurrentUserStore((s) => s.setCurrentUser);
 	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsLoading(true);
 
-		// Simuler une connexion
-
-		const finduser = user.find((user) => user.email === email);
-		if (!finduser) {
-			alert("Identifiants incorrects");
-			setIsLoading(false);
-			return;
-		}
-
-		setTimeout(() => {
-			setIsLoading(false);
-			// Rediriger vers l'application principale après connexion
-			setCookie("currentUser", JSON.stringify(finduser));
-			router.push("/home");
-		}, 1500);
+		login(email, password)
+			.then((finduser: User | null) => {
+				if (!finduser) {
+					alert("Identifiants incorrects. Veuillez réessayer.");
+					setIsLoading(false);
+					return;
+				}
+				setIsLoading(false);
+				setCurrentUser(finduser);
+				router.push("/home");
+			})
+			.catch((error) => {
+				console.error("Erreur lors de la connexion :", error);
+				alert("Une erreur est survenue. Veuillez réessayer.");
+				setIsLoading(false);
+			});
 	};
 
 	return (

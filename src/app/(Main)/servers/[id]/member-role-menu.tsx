@@ -8,11 +8,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useCurrentUserStore } from "@/contexts/userStore";
 import { CanManageMemberRole } from "@/lib/MemberUtils";
-import { getCookie } from "@/services/cookie";
 import { Member } from "@/type/Member";
 import { Server } from "@/type/Server";
-import { User } from "@/type/User";
 import { Crown, MoreHorizontal, Shield, User as UserIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -27,19 +26,12 @@ export function MemberRoleMenu({
 	salon,
 	onChangeRole,
 }: MemberRoleMenuProps) {
-	const [currentUser, setCurrentUser] = useState<User>();
+	const currentUser = useCurrentUserStore((s) => s.currentUser);
 	const [canManage, setCanManage] = useState(false);
-	const currentUserMember = salon.members.find((m) => m.id === currentUser?.id);
+	const currentUserMember = salon.members.find(
+		(m) => m.user?.id === currentUser?.id
+	);
 
-	useEffect(() => {
-		const fetchCurrentUser = async () => {
-			const userCookie = await getCookie("currentUser");
-			if (userCookie) {
-				setCurrentUser(JSON.parse(userCookie));
-			}
-		};
-		fetchCurrentUser();
-	}, []);
 	useEffect(() => {
 		if (currentUserMember) {
 			setCanManage(CanManageMemberRole(currentUserMember, member));
