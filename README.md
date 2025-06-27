@@ -161,6 +161,9 @@ You will need a `.env.local` file at the root of your project. For now, it's emp
 # Backend URL
 API_BASE_URL=your-api-url
 
+# Whether to mock the API or to actually hit the backend, useful to test the frontend in isolation
+NEXT_PUBLIC_USE_MOCKS=false
+
 # OAuth client (e.g., GitHub, Google)
 GITHUB_CLIENT_ID=your-client-id
 GITHUB_CLIENT_SECRET=your-client-secret
