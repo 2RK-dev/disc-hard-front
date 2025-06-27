@@ -22,7 +22,6 @@ export function ServerChat({serverId}: ServerChatProps) {
     const [messageInput, setMessageInput] = useState("");
     const scrollAreaRef = useRef<HTMLDivElement>(null);
     const CurrentUser = useCurrentUserStore((s) => s.currentUser);
-    const [currentMember, setCurrentMember] = useState<Member>();
     const [currentSalon, setCurrentSalon] = useState<Server>();
     const [messages, setMessages] = useState<Message[]>([]);
     const [loading, setLoading] = useState(true);
@@ -43,17 +42,6 @@ export function ServerChat({serverId}: ServerChatProps) {
     }, [serverId]);
 
     useEffect(() => {
-        if (!CurrentUser || !currentSalon) return;
-
-        const member = currentSalon.members.find(
-            (member: Member) => member.user?.id === CurrentUser?.id
-        );
-        if (member) {
-            setCurrentMember(member);
-        }
-    }, [CurrentUser, currentSalon]);
-
-    useEffect(() => {
         if (!currentSalon) return;
 
         const scrollContainer = scrollAreaRef.current?.querySelector(
@@ -65,8 +53,13 @@ export function ServerChat({serverId}: ServerChatProps) {
         scrollContainer.scrollTop = scrollContainer.scrollHeight;
     }, [messages, currentSalon]);
 
+    if (!CurrentUser || !currentSalon) return;
+
     const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
+        const currentMember = currentSalon.members.find(
+            (member: Member) => member.user?.id === CurrentUser?.id
+        );
 
         if (messageInput.trim() === "") return;
 
@@ -81,7 +74,6 @@ export function ServerChat({serverId}: ServerChatProps) {
         setMessageInput("");
     };
 
-    // Grouper les messages par jour
     const groupMessagesByDate = () => {
         const groups: { date: string; messages: Message[] }[] = [];
 
