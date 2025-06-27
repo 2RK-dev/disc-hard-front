@@ -201,15 +201,9 @@ export function ServerChat({ serverId }: ServerChatProps) {
 											key={messageIndex}
 											className="flex group hover:bg-[#2e3035] rounded py-1">
 											<Avatar className="h-10 w-10 mr-4 mt-0.5">
-												<AvatarImage
-													src={
-														member?.user?.avatar ||
-														user?.avatar ||
-														"/placeholder.svg"
-													}
-												/>
+												<AvatarImage src={user?.avatar || "/placeholder.svg"} />
 												<AvatarFallback>
-													{(member?.user?.name || user?.name || "?")[0]}
+													{(member?.alias || "?")[0]}
 												</AvatarFallback>
 											</Avatar>
 											<div className="flex-1 group">

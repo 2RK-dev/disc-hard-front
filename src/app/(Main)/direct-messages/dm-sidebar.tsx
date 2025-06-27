@@ -3,6 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useCurrentUserStore } from "@/contexts/userStore";
 import { getMyDirectMessagesList } from "@/services/direct-message";
 import { DirectMessageList } from "@/type/direct-message";
 import { Plus } from "lucide-react";
@@ -17,10 +18,12 @@ interface DMSidebarProps {
 export function DMSidebar({ onSelectDM, SelectedDM }: DMSidebarProps) {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [DMList, setUsers] = useState<DirectMessageList[]>([]);
+	const currentUser = useCurrentUserStore((s) => s.currentUser);
 
 	useEffect(() => {
+		if (!currentUser) return;
 		const fetchUsers = async () => {
-			await getMyDirectMessagesList(1)
+			await getMyDirectMessagesList(currentUser.id)
 				.then((dmList) => {
 					setUsers(dmList);
 				})
@@ -29,7 +32,7 @@ export function DMSidebar({ onSelectDM, SelectedDM }: DMSidebarProps) {
 				});
 		};
 		fetchUsers();
-	}, []);
+	}, [currentUser]);
 
 	const getStatusColor = (status: string) => {
 		switch (status) {
@@ -43,6 +46,10 @@ export function DMSidebar({ onSelectDM, SelectedDM }: DMSidebarProps) {
 				return "bg-gray-500";
 		}
 	};
+
+	const filteredDMList = DMList.filter((DM) =>
+		DM.user.user?.name.toLowerCase().includes(searchQuery.toLowerCase())
+	);
 
 	return (
 		<div className="w-60 h-full bg-[#2b2d31] flex flex-col">
@@ -72,7 +79,7 @@ export function DMSidebar({ onSelectDM, SelectedDM }: DMSidebarProps) {
 
 			<ScrollArea className="flex-1 px-2">
 				<div className="space-y-0.5">
-					{DMList.map((DM) => (
+					{filteredDMList.map((DM) => (
 						<button
 							key={DM.direct_messageID}
 							className={`w-full flex items-center px-2 py-1.5 rounded cursor-pointer ${

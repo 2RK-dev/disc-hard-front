@@ -21,28 +21,46 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useCurrentUserStore } from "@/contexts/userStore";
+import { register } from "@/services/user";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function RegisterForm() {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [dateOfBirth] = useState({
+		day: "",
+		month: "",
+		year: "",
+	});
 	const [isLoading, setIsLoading] = useState(false);
+	const setCurrentUser = useCurrentUserStore((s) => s.setCurrentUser);
 	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setIsLoading(true);
+		const dob = new Date(
+			`${dateOfBirth.year}-${dateOfBirth.month}-${dateOfBirth.day}`
+		);
 
-		// Simuler une inscription
-		setTimeout(() => {
-			setIsLoading(false);
-			// Rediriger vers l'application principale après inscription
-			router.push("/home");
-		}, 1500);
+		register(email, username, password, dob)
+			.then((user) => {
+				setCurrentUser(user);
+				setIsLoading(false);
+				toast.success("Inscription réussie ! Bienvenue sur DiscHard !");
+				router.push("/home");
+			})
+			.catch((error) => {
+				console.error("Erreur lors de l'inscription :", error);
+				setIsLoading(false);
+				toast.error("Erreur lors de l'inscription. Veuillez réessayer.");
+			});
 	};
 
 	return (

@@ -9,12 +9,11 @@ import {
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { getCookie } from "@/services/cookie";
+import { useCurrentUserStore } from "@/contexts/userStore";
 import { UpdateMemberRole } from "@/services/member";
 import { addMemberToSalon, getSalonById } from "@/services/salon";
 import { Member, Role } from "@/type/Member";
 import { Server } from "@/type/Server";
-import { User } from "@/type/User";
 import { Crown, Plus, Settings, Shield, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { InviteMemberModal } from "./invite-member-modal";
@@ -26,20 +25,9 @@ interface ServerLayoutProps {
 }
 
 export function ServerLayout({ serverId }: ServerLayoutProps) {
-	const [currentUser, setCurrentUser] = useState<User>();
+	const currentUser = useCurrentUserStore((s) => s.currentUser);
 	const [currentSalon, setCurrentSalon] = useState<Server | null>(null);
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-
-	useEffect(() => {
-		const fetchCurrentUser = async () => {
-			const userCookie = await getCookie("currentUser");
-			if (userCookie) {
-				setCurrentUser(JSON.parse(userCookie));
-			}
-		};
-
-		fetchCurrentUser();
-	}, []);
 
 	useEffect(() => {
 		const fetchCurrentSalon = async () => {
@@ -61,7 +49,7 @@ export function ServerLayout({ serverId }: ServerLayoutProps) {
 	}
 
 	const currentUserMember = currentSalon.members.find(
-		(member: Member) => member.id === currentUser?.id
+		(member: Member) => member.user?.id === currentUser?.id
 	);
 	const isCurrentUserOwner = currentUserMember?.role === "owner";
 	const isCurrentUserAdmin = currentUserMember?.role === "admin";

@@ -10,8 +10,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getCookie } from "@/services/cookie";
-import { User } from "@/type/User";
+import { useCurrentUserStore } from "@/contexts/userStore";
 import {
 	Bell,
 	ChevronDown,
@@ -24,27 +23,17 @@ import {
 	User as UserComponent,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export function UserDropdownMenu() {
 	const router = useRouter();
-	const [currentUser, setCurrentUser] = useState<User>();
+	const { currentUser, setCurrentUser } = useCurrentUserStore();
 
-	useEffect(() => {
-		getCurrentUser();
-	}, []);
-
-	const getCurrentUser = async () => {
-		const user = await getCookie("user");
-		if (user) {
-			setCurrentUser(JSON.parse(user));
-		}
-	};
+	if (!currentUser) {
+		return null;
+	}
 
 	const handleLogout = () => {
-		// Supprimer les données d'authentification
-		sessionStorage.removeItem("isAuthenticated");
-		// Rediriger vers la page d'accueil
+		setCurrentUser(null);
 		router.push("/");
 	};
 
