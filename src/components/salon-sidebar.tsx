@@ -1,51 +1,34 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { getCookie } from "@/services/cookie";
-import { addSalon, getMySalons } from "@/services/salon";
-import { Server } from "@/type/Server";
-import { User } from "@/type/User";
-import { Download, Plus, User as UserIcon } from "lucide-react";
+import {Button} from "@/components/ui/button";
+import {Separator} from "@/components/ui/separator";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,} from "@/components/ui/tooltip";
+import {addSalon, getMySalons} from "@/services/salon";
+import {Server} from "@/type/Server";
+import {User} from "@/type/User";
+import {Download, Plus, User as UserIcon} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { CreateServerModal } from "./create-server-modal";
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import {CreateServerModal} from "./create-server-modal";
+import {useCurrentUserStore} from "@/contexts/userStore";
 
 export function SalonSidebar() {
 	const router = useRouter();
-	const [activepage, setActivePage] = useState("home");
-	const [currentUser, setCurrentUser] = useState<User>();
+	const [activePage, setActivePage] = useState("home");
+	const currentUser = useCurrentUserStore((s)=> s.currentUser);
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [salons, setSalons] = useState<Server[]>([]);
 
 	useEffect(() => {
-		const fetchCurrentUser = async () => {
-			const userCookie = await getCookie("currentUser");
-			if (userCookie) {
-				setCurrentUser(JSON.parse(userCookie));
-			}
-		};
-
-		fetchCurrentUser();
-	}, []);
-
-	useEffect(() => {
-		const fetchSalons = async () => {
 			if (currentUser) {
-				const salons = await getMySalons(currentUser.id);
-				setSalons(salons);
+				getMySalons(currentUser.id).then((salons) => {
+					setSalons(salons);
+				});
 			}
-		};
-		fetchSalons();
-	}, [currentUser]);
+		}
+		, [currentUser]);
 
 	const handleCreateSalon = async (
 		salonName: string,
@@ -66,7 +49,7 @@ export function SalonSidebar() {
 						<Link href="/home">
 							<Button
 								className={`h-12 w-12 rounded-[24px] ${
-									activepage === "dm" || "home"
+									activePage === "dm" || "home"
 										? "bg-white hover:bg-white"
 										: "bg-[#5865f2] hover:bg-[#4752c4]"
 								} flex items-center relative justify-center hover:rounded-[16px] transition-all duration-200 `}
@@ -95,7 +78,7 @@ export function SalonSidebar() {
 						<Link href="/profile">
 							<Button
 								className={`h-12 w-12 rounded-[24px] ${
-									activepage === "profile"
+									activePage === "profile"
 										? "bg-[#5865f2]"
 										: "bg-[#313338] hover:bg-[#5865f2]"
 								} flex items-center justify-center hover:rounded-[16px] transition-all duration-200`}
@@ -121,7 +104,7 @@ export function SalonSidebar() {
 							<Link href={`/servers/${salon.id}`}>
 								<Button
 									className={`h-12 w-12 rounded-[24px] bg-[#313338] flex items-center justify-center hover:rounded-[16px] ${
-										activepage === `salon-${salon.id}`
+										activePage === `salon-${salon.id}`
 											? "bg-[#5865f2]"
 											: "hover:bg-[#5865f2]"
 									} transition-all duration-200`}
