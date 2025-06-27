@@ -52,7 +52,6 @@ export function InviteMemberModal({
 		fetchUsers();
 	}, [existingMembers]);
 
-	// Convertir les utilisateurs en membres potentiels
 	const availableMembers: Member[] = users
 		.filter((user) => !existingMembers.some((member) => member.id === user.id))
 		.map((user) => ({
@@ -62,7 +61,6 @@ export function InviteMemberModal({
 			user: user,
 		}));
 
-	// Filtrer les membres disponibles selon la recherche
 	const filteredMembers = availableMembers.filter((member) =>
 		member.alias.toLowerCase().includes(searchQuery.toLowerCase())
 	);
@@ -73,7 +71,6 @@ export function InviteMemberModal({
 		setIsLoading(true);
 
 		try {
-			// Simuler un délai d'invitation
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			onInviteMember(selectedUser);
