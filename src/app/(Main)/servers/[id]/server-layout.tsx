@@ -94,12 +94,10 @@ export function ServerLayout({serverId}: ServerLayoutProps) {
         }
     };
 
-    // Trier les membres par rôle : propriétaire, administrateurs, puis membres
     const sortedMembers = [...currentSalon?.members].sort((a, b) => {
         return getRoleIndex(a.role) - getRoleIndex(b.role);
     });
 
-    // Grouper les membres par statut
     const onlineMembers = sortedMembers.filter(
         (m) => m.user?.status !== "offline"
     );
