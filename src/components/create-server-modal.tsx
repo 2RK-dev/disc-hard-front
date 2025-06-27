@@ -1,8 +1,9 @@
 "use client";
 
 import type React from "react";
+import {useState} from "react";
 
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -11,13 +12,12 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { getCookie } from "@/services/cookie";
-import { User } from "@/type/User";
-import { Upload } from "lucide-react";
-import { useEffect, useState } from "react";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {Textarea} from "@/components/ui/textarea";
+import {User} from "@/type/User";
+import {Upload} from "lucide-react";
+import {useCurrentUserStore} from "@/contexts/userStore";
 
 interface CreateServerModalProps {
 	isOpen: boolean;
@@ -37,18 +37,8 @@ export function CreateServerModal({
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const [currentUser, setCurrentUser] = useState<User>();
+	const currentUser = useCurrentUserStore((s) => s.currentUser) ;
 
-	useEffect(() => {
-		const fetchCurrentUser = async () => {
-			const userCookie = await getCookie("currentUser");
-			if (userCookie) {
-				setCurrentUser(JSON.parse(userCookie));
-			}
-		};
-
-		fetchCurrentUser();
-	}, []);
 	if (!currentUser) {
 		return null;
 	}
@@ -58,13 +48,10 @@ export function CreateServerModal({
 		setIsLoading(true);
 
 		try {
-			// Simuler un délai de création
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			// Créer le serveur avec les données du formulaire
 			onCreateSalon(name, description, currentUser);
 
-			// Réinitialiser le formulaire
 			setName("");
 			setDescription("");
 			onClose();
