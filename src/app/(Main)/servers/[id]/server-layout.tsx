@@ -158,7 +158,6 @@ export function ServerLayout({serverId}: ServerLayoutProps) {
                         </AccordionItem>
                     </Accordion>
 
-                    {/* Zone de chat */}
                     <ServerChat serverId={serverId}/>
                 </div>
 
@@ -173,7 +172,6 @@ export function ServerLayout({serverId}: ServerLayoutProps) {
                     <div
                         className="overflow-y-auto"
                         style={{maxHeight: "calc(100vh - 12rem)"}}>
-                        {/* Membres en ligne */}
                         {onlineMembers.length > 0 && (
                             <div className="mb-2">
                                 <div className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase">
@@ -234,8 +232,6 @@ export function ServerLayout({serverId}: ServerLayoutProps) {
                                 ))}
                             </div>
                         )}
-
-                        {/* Membres hors ligne */}
                         {offlineMembers.length > 0 && (
                             <div>
                                 <div className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase">
