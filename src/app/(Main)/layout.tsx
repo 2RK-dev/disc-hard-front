@@ -7,22 +7,20 @@ import {useRouter} from "next/navigation";
 import {UserDropdownMenu} from "./user-dropdown-menu";
 import {useCurrentUserStore} from "@/contexts/userStore";
 
-export default function HomeLayout({
-                                       children,
-                                   }: {
+export default function HomeLayout({children}: {
     children: React.ReactNode;
 }) {
     const router = useRouter();
     const currentUser = useCurrentUserStore((s) => s.currentUser);
-	const hasHydrated = useCurrentUserStore((s) => s.hasHydrated);
+    const hasHydrated = useCurrentUserStore((s) => s.hasHydrated);
 
 
     if (!currentUser && hasHydrated) {
         router.replace("/login");
     }
     if (!hasHydrated) {
-		return null;
-	}
+        return null;
+    }
 
 
     return (
