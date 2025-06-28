@@ -4,6 +4,9 @@ export async function withService<T>(mockImport: () => Promise<T>, realImport: (
     } else if (process.env.NEXT_PUBLIC_USE_MOCKS === 'false') {
         return realImport();
     } else {
-        throw new Error("Environment variable NEXT_PUBLIC_USE_MOCKS is not set.");
+        throw new Error(
+            "The environment variable 'NEXT_PUBLIC_USE_MOCKS' must be set to either 'true' or 'false'. " +
+            "Please update your environment configuration to specify whether to use mock or real services."
+        );
     }
 }
