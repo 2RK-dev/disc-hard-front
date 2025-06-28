@@ -10,9 +10,7 @@ import {Label} from "@/components/ui/label"
 import {Textarea} from "@/components/ui/textarea"
 import {Badge} from "@/components/ui/badge"
 import {AtSign, Calendar, Edit, Flag} from "lucide-react"
-import {ActivitySettings} from "./activity-settings"
 import {useCurrentUserStore} from "@/contexts/userStore";
-import {UserActivityDisplay} from "@/app/(Main)/profile/userActivityDisplay";
 
 export function ProfileLayout() {
     const [isEditing, setIsEditing] = useState(false)
@@ -66,7 +64,6 @@ export function ProfileLayout() {
                                 {isEditing ? "Annuler" : "Modifier le profil"}
                             </Button>
                         </div>
-                        <UserActivityDisplay showControls={true} className="mt-4"/>
 
                         <Tabs defaultValue="about" className="mt-6">
                             <TabsList className="bg-[#1e1f22]">
@@ -146,7 +143,6 @@ export function ProfileLayout() {
                             <TabsContent value="activity">
                                 <div className="p-4">
                                     <h3 className="text-lg font-semibold mb-4">Mes activités récentes</h3>
-                                    <UserActivityDisplay showControls={true}/>
                                 </div>
                             </TabsContent>
 
@@ -155,12 +151,6 @@ export function ProfileLayout() {
                                     <p>Aucune connexion à afficher</p>
                                     <Button className="mt-4 bg-[#5865F2] hover:bg-[#4752c4]">Ajouter une
                                         connexion</Button>
-                                </div>
-                            </TabsContent>
-
-                            <TabsContent value="settings">
-                                <div className="p-4">
-                                    <ActivitySettings/>
                                 </div>
                             </TabsContent>
                         </Tabs>
