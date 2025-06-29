@@ -5,4 +5,5 @@ export interface IUser {
     getUserWithoutTheseUsers: (excludeUsers: User[]) => Promise<User[]>;
     login: (username: string, password: string) => Promise<User | null>;
     register: (email: string, name: string, password: string, dob: Date) => Promise<User>;
+    ChangeName: (userId: number, newName: string) => Promise<User>;
 }
