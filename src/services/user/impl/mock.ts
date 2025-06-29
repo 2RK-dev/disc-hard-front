@@ -72,3 +72,18 @@ export async function register(
     users.push(newUser);
     return newUser;
 }
+
+export async function changeName(
+    user: number,
+    newName: string
+): Promise<User> {
+    if (!newName || newName.trim() === "") {
+        throw new Error("Username cannot be empty");
+    }
+    const existingUser = users.find((u) => u.id === user);
+    if (!existingUser) {
+        throw new Error("User not found");
+    }
+    existingUser.name = newName;
+    return existingUser;
+}

@@ -57,3 +57,18 @@ export async function register(
     }
     throw new Error("Registration failed");
 }
+
+export async function changeName(
+    user: number,
+    newName: string
+): Promise<User> {
+    //simulate username change
+    //return the same user object with the new name
+    const users = await getUsers();
+    const foundUser = users.find((u) => u.id === user);
+    if (!foundUser) {
+        throw new Error("User not found");
+    }
+    foundUser.name = newName;
+    return foundUser;
+}
