@@ -11,19 +11,33 @@ import {Textarea} from "@/components/ui/textarea"
 import {Badge} from "@/components/ui/badge"
 import {AtSign, Calendar, Edit, Flag} from "lucide-react"
 import {useCurrentUserStore} from "@/contexts/userStore";
+import {User} from "@/type/User"
 
 export function ProfileLayout() {
     const [isEditing, setIsEditing] = useState(false)
     const currentUser = useCurrentUserStore((s) => s.currentUser);
+    const setCurrentUser = useCurrentUserStore((s) => s.setCurrentUser);
     const [username, setUsername] = useState(currentUser?.name);
     const [about, setAbout] = useState("Passionné de technologie et de gaming. Discord enthusiast!")
 
     const handleSaveProfile = () => {
+        ChangeName();
         setIsEditing(false)
     }
 
+    const ChangeName = () => {
+        if (username == undefined || username.trim() === "") {
+            alert("Le nom d'utilisateur ne peut pas être vide.");
+            return;
+        }
+        if(currentUser == null) return;
+        currentUser.name = username;
+        setCurrentUser(currentUser as User);
+        setIsEditing(false);
+    };
+
     return (
-        <div className="flex h-screen bg-[#1e1f22] text-white overflow-hidden">
+        <div className="flex flex-1 bg-[#1e1f22] text-white overflow-hidden">
             <div className="flex-1 flex flex-col bg-[#313338]">
                 <div className="h-12 border-b border-[#1e1f22] shadow-sm flex items-center px-4">
                     <h2 className="font-bold text-white">Mon Profil</h2>
@@ -57,7 +71,7 @@ export function ProfileLayout() {
                             </div>
                             <Button
                                 variant="outline"
-                                className="border-gray-600 text-gray-300 hover:bg-[#3f4147]"
+                                className="border-gray-600 text-black hover:bg-[#3f4147] hover:text-white"
                                 onClick={() => setIsEditing(!isEditing)}
                             >
                                 <Edit className="h-4 w-4 mr-2"/>
@@ -66,19 +80,19 @@ export function ProfileLayout() {
                         </div>
 
                         <Tabs defaultValue="about" className="mt-6">
-                            <TabsList className="bg-[#1e1f22]">
+                            <TabsList className="">
                                 <TabsTrigger value="about">À propos</TabsTrigger>
                                 <TabsTrigger value="activity">Activité</TabsTrigger>
                                 <TabsTrigger value="connections">Connexions</TabsTrigger>
                                 <TabsTrigger value="settings">Paramètres</TabsTrigger>
                             </TabsList>
 
-                            <TabsContent value="about" className="mt-4">
+                            <TabsContent value="about" className="mt-4  ">
                                 {isEditing ? (
-                                    <Card className="bg-[#36393f] border-none">
+                                    <Card className="bg-[#36393f] text-white border-none">
                                         <CardHeader>
                                             <CardTitle>Modifier votre profil</CardTitle>
-                                            <CardDescription className="text-gray-400">
+                                            <CardDescription className={"text-white"}>
                                                 Mettez à jour vos informations personnelles
                                             </CardDescription>
                                         </CardHeader>
@@ -89,7 +103,7 @@ export function ProfileLayout() {
                                                     id="username"
                                                     value={username}
                                                     onChange={(e) => setUsername(e.target.value)}
-                                                    className="bg-[#202225] border-none text-white"
+                                                    className="bg-[#202225] border-none "
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -98,7 +112,7 @@ export function ProfileLayout() {
                                                     id="about"
                                                     value={about}
                                                     onChange={(e) => setAbout(e.target.value)}
-                                                    className="bg-[#202225] border-none text-white min-h-[100px]"
+                                                    className="bg-[#202225] border-none  min-h-[100px]"
                                                 />
                                             </div>
                                             <div className="flex justify-end">
