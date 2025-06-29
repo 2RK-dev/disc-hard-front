@@ -69,11 +69,6 @@ export async function addSalon (
         messages: [],
     };
 }
-
-export async function getLastSalonId(): Promise<number> {
-    return 0; // This function is not used in the real implementation
-}
-
 export async function addMemberToSalon (
     salonId: number,
     member: Member
