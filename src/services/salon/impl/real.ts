@@ -69,7 +69,6 @@ export async function addSalon (
         messages: [],
     };
 }
-
 export async function addMemberToSalon (
     salonId: number,
     member: Member

@@ -67,7 +67,7 @@ export async function addSalon(
     return newSalon;
 }
 
-export async function getLastSalonId(): Promise<number> {
+async function getLastSalonId(): Promise<number> {
     const lastSalon = salons[salons.length - 1];
     if (!lastSalon) {
         throw new Error("No salons found");
