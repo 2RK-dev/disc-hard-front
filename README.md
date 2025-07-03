@@ -4,20 +4,20 @@ DiscHard is a real-time messaging application inspired by Discord. It aims to pr
 
 ---
 
-## 🚀 Table of Contents
+## Table of Contents
 
-- [📦 Prerequisites](#-prerequisites)
-- [🧩 Technologies Used](#-technologies-used)
-- [✨ Features](#-features)
-- [📁 Project Structure](#-project-structure)
-- [🧠 Future Ideas](#-future-ideas)
-- [⚙️ Environment Configuration](#%EF%B8%8F-environment-configuration)
-- [📚 Contribution](#-contribution)
-- [🪪 License](#-license)
+- [Prerequisites](#-prerequisites)
+- [Technologies Used](#-technologies-used)
+- [Features](#-features)
+- [Project Structure](#-project-structure)
+- [Future Ideas](#-future-ideas)
+- [Environment Configuration](#%EF%B8%8F-environment-configuration)
+- [Contribution](#-contribution)
+- [License](#-license)
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before starting, make sure you have the following installed:
 
@@ -72,7 +72,7 @@ npm run build && npm start
 
 ---
 
-## 🧩 Technologies Used
+## Technologies Used
 
 - **Next.js** — Modern React framework for SSR/SSG
 - **Tailwind CSS** — Fast and responsive styling
@@ -82,22 +82,22 @@ npm run build && npm start
 
 ---
 
-## ✨ Features
+## Features
 
 Here's a list of planned and current features:
 
-- 🔐 Authentication (OAuth2, Email/Password) (in development)
-- 🗂️ Server (guild) and channel system (in development)
-- 💬 Real-time text messaging (in development)
-- 📸 File and image uploads (in development)
-- 🔔 Live notifications (in development)
-- 🧑‍🤝‍🧑 Member management (roles, permissions) (in development and need discution)
-- 🌙 Dark mode (in development)
-- 📱 Mobile and desktop responsive design (maybe😂)
+- Authentication (OAuth2, Email/Password) (in development)
+- Server (guild) and channel system (in development)
+- Real-time text messaging (in development)
+- File and image uploads (in development)
+- Live notifications (in development)
+- Member management (roles, permissions) (in development and need discution)
+- Dark mode (in development)
+- Mobile and desktop responsive design (maybe😂)
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 The current and planned project structure, with detailed explanations:
 
@@ -138,22 +138,22 @@ for each folder in app, you have the components used in that page, for example, 
 
 ---
 
-## 🧠 Future Ideas
+## Future Ideas
 
-- 📞 Audio/video call integration via WebRTC
-- 🧪 Unit testing with Jest + React Testing Library
-- 📱 Mobile app using React Native
-- 📊 Server usage statistics
-- 📈 Server boost and subscription system (if we want money 😗)
-- 🧵 Message threads and reactions
-- 🔐 End-to-end message encryption
-- 🏷️ Mentions & custom emojis (maybe)
-
----
+- Audio/video call integration via WebRTC
+- Unit testing with Jest + React Testing Library
+- Mobile app using React Native
+- Server usage statistics
+- Server boost and subscription system (if we want money 😗)
+- Message threads and reactions
+- End-to-end message encryption
+- Mentions & custom emojis (maybe)
 
 ---
 
-## ⚙️ Environment Configuration
+---
+
+## Environment Configuration
 
 You will need a `.env.local` file at the root of your project. For now, it's empty by default, but it should at least include the following variables:
 
@@ -191,7 +191,7 @@ npm run dev
 
 ---
 
-## 📚 Contribution
+## Contribution
 
 Contributions are welcome!  
 Feel free to open an issue, suggest a feature or submit a pull request. Please write clean, typed, and well-documented code.
@@ -209,7 +209,7 @@ git push origin feature/my-feature
 
 ---
 
-## 🪪 License
+## License
 
 This project is licensed under the MIT License.  
 Feel free to clone, modify, or reuse it for personal or academic purposes.
